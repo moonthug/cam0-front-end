@@ -5,8 +5,8 @@ import Layer from './Layer';
 
 const LayerList = ({ layers, onLayerListUpdateLayer, onLayerListDeleteLayer }) => {
 
-  const onLayerUpdate = (layerUpdateData) => {
-    onLayerListUpdateLayer(layerUpdateData);
+  const onLayerUpdate = (update) => {
+    onLayerListUpdateLayer(update);
   };
 
   const onLayerRemove = (layerId) => {

@@ -3,13 +3,12 @@ import { shallow } from 'enzyme';
 
 import Layer from './Layer';
 
+import defaultLayer from '../../constants/defaults/layer';
+
 describe('<Layer />', () => {
 
-  const layer = {
-    id: 1,
-    color: '#FF0000',
-    tolerance:  50
-  };
+  const layer = defaultLayer;
+
   const onLayerUpdate = () => { };
   const onLayerRemove = () => { };
 
@@ -20,8 +19,8 @@ describe('<Layer />', () => {
     expect(actual).toEqual(1);
   });
 
-  it('should contain <input name="tolerance">', () => {
-    const actual = wrapper.find('input[name="tolerance"]').length;
+  it('should contain <input name="alpha">', () => {
+    const actual = wrapper.find('input[name="alpha"]').length;
     expect(actual).toEqual(1);
   });
 

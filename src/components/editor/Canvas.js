@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Noise }  from 'noisejs';
 
 class Canvas extends React.Component {
 
@@ -22,6 +23,13 @@ class Canvas extends React.Component {
     this.canvas.setAttribute('width', 800);
     this.canvas.setAttribute('height', 400);
     this.ctx = this.canvas.getContext('2d');
+
+    this.canvas2 = document.createElement('canvas');
+    this.canvas2.width = this.canvas.width;
+    this.canvas2.height = this.canvas.height;
+    this.ctx2 = this.canvas2.getContext('2d');
+
+    this.noise = new Noise(Math.random());
   }
 
   componentDidMount() {
@@ -39,15 +47,68 @@ class Canvas extends React.Component {
   // CANVAS
 
   draw() {
-    this.ctx.clearRect(0, 0, 600, 600);
+    const threshold = (variable, min, max, val) => {
+      return (variable < min || variable > max) ? 0 : (val) ? val : variable;
+    };
 
+    const parseColor = (colorString) => {
+      let m = colorString.match(/^#([0-9a-f]{6})$/i)[1];
+      if(m) {
+        return [
+          parseInt(m.substr(0, 2),16),
+          parseInt(m.substr(2, 2),16),
+          parseInt(m.substr(4, 2),16)
+        ];
+      }
+      else {
+        return [0, 0, 0];
+      }
+    };
+
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    // BG
+    this.ctx.beginPath();
+    this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillStyle = this.props.settings.backgroundColor;
+    this.ctx.fill();
+    this.ctx.closePath();
+
+    // LAYERS
     this.props.layers.forEach((layer, i) => {
-      this.ctx.beginPath();
-      this.ctx.rect(50 * i, layer.tolerance, 40, 40);
-      this.ctx.strokeStyle = layer.color;
-      this.ctx.stroke();
-      this.ctx.closePath();
+      this.noise.seed(layer.noiseSeed);
+
+      let image = this.ctx2.getImageData(0, 0, this.canvas.width, this.canvas.height);
+      let data = image.data;
+
+      let color = parseColor(layer.color);
+
+      for (let x = 0; x < this.canvas.width; x++) {
+        for (let y = 0; y < this.canvas.height; y++) {
+          let value = Math.abs(this.noise.perlin2(x / layer.frequency, y / layer.frequency) * layer.amplitude);
+
+          value = threshold(value, layer.thresholdMin, layer.thresholdMax);
+
+          let cell = (x + y * this.canvas.width) * 4;
+
+          data[cell]      = color[0];// * value;
+          data[cell + 1]  = color[1];// * value;
+          data[cell + 2]  = color[2];// * value;
+          data[cell + 3]  = value === 0 ? 0 : layer.alpha;
+        }
+      }
+      this.ctx2.putImageData(image, 0, 0);
+
+      this.ctx.globalCompositeOperation = this.props.settings.blendMode;
+      this.ctx.drawImage(this.canvas2, 0, 0);
     });
+
+    if(this.props.settings.blur === true) {
+      this.ctx.filter = 'blur(' + this.props.settings.blurAmmount + 'px)';
+    }
+    else {
+      this.ctx.filter = 'none';
+    }
 
   }
 
@@ -73,10 +134,11 @@ class Canvas extends React.Component {
 //
 // PROP VALIDATION
 
-const { array } = PropTypes;
+const { array, object } = PropTypes;
 
 Canvas.propTypes = {
-  layers: array.isRequired
+  layers: array.isRequired,
+  settings: object.isRequired
 };
 
 

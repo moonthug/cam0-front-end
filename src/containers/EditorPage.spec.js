@@ -9,6 +9,7 @@ import Editor from '../components/editor';
 describe('<EditorPage />', () => {
 
   const actions = {
+    updateSetting: () => { },
     createLayer: () => { },
     updateLayer: () => { },
     deleteLayer: () => { },

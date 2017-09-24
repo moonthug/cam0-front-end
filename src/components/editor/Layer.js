@@ -12,6 +12,7 @@ const Layer = ({ layer, onLayerUpdate, onLayerRemove }) => {
   };
 
   const onChangeInt = (e) => { _onChange(e, parseInt); };
+  const onChangeFloat = (e) => { _onChange(e, parseFloat); };
   const onChangeString = (e) => { _onChange(e); };
 
   const onDelete = (e) => {
@@ -21,7 +22,7 @@ const Layer = ({ layer, onLayerUpdate, onLayerRemove }) => {
 
   return (
     <div className="layer">
-      <p>Layer [{ layer.id }] - {layer.value}</p>
+      <p>Layer [{ JSON.stringify(layer) }]</p>
       <button onClick={onDelete}>x</button>
       <input
         type="color"
@@ -31,10 +32,48 @@ const Layer = ({ layer, onLayerUpdate, onLayerRemove }) => {
       />
       <input
         type="range"
-        max="255"
-        name="tolerance"
-        defaultValue={layer.tolerance}
+        max="32767"
+        name="noiseSeed"
+        defaultValue={layer.noiseSeed}
         onChange={onChangeInt}
+      />
+      <input
+        type="range"
+        max="255"
+        name="alpha"
+        defaultValue={layer.alpha}
+        onChange={onChangeInt}
+      />
+      <input
+        type="range"
+        max="1"
+        step="0.01"
+        name="thresholdMin"
+        defaultValue={layer.thresholdMin}
+        onChange={onChangeFloat}
+      />
+      <input
+        type="range"
+        max="1"
+        step="0.01"
+        name="thresholdMax"
+        defaultValue={layer.thresholdMax}
+        onChange={onChangeFloat}
+      />
+      <input
+        type="range"
+        max="1000"
+        name="frequency"
+        defaultValue={layer.frequency}
+        onChange={onChangeFloat}
+      />
+      <input
+        type="range"
+        max="2"
+        step="0.01"
+        name="amplitude"
+        defaultValue={layer.amplitude}
+        onChange={onChangeFloat}
       />
      </div>
   );
@@ -49,8 +88,15 @@ const { func, number, shape, string } = PropTypes;
 
 Layer.propTypes = {
   layer: shape({
+    id: number.isRequired,
+    noiseSeed: number.isRequired,
     color: string.isRequired,
-    tolerance: number.isRequired
+    alpha: number.isRequired,
+    thresholdMin: number.isRequired,
+    thresholdMax: number.isRequired,
+    blendMode: string.isRequired,
+    frequency: number.isRequired,
+    amplitude: number.isRequired,
   }).isRequired,
   onLayerUpdate: func.isRequired,
   onLayerRemove: func.isRequired

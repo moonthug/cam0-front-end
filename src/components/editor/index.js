@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../../styles/editor.css';
-
 import Canvas from './Canvas';
+import Settings from './Settings';
 import LayerList from './LayerList';
 
 class Editor extends React.Component {
@@ -17,6 +16,7 @@ class Editor extends React.Component {
     super(props, context);
 
     this.createLayer = this.createLayer.bind(this);
+    this.onSettingsUpdateSetting = this.onSettingsUpdateSetting.bind(this);
     this.onLayerListUpdateLayer = this.onLayerListUpdateLayer.bind(this);
     this.onLayerListDeleteLayer = this.onLayerListDeleteLayer.bind(this);
   }
@@ -30,8 +30,12 @@ class Editor extends React.Component {
     this.props.createLayer();
   }
 
-  onLayerListUpdateLayer(layer) {
-    this.props.updateLayer(layer);
+  onSettingsUpdateSetting(update) {
+    this.props.updateSetting(update);
+  }
+
+  onLayerListUpdateLayer(update) {
+    this.props.updateLayer(update);
   }
 
   onLayerListDeleteLayer(layerId) {
@@ -48,20 +52,29 @@ class Editor extends React.Component {
     return (
       <div>
         <h2>Editor</h2>
-        <LayerList
-          layers={editor.layers}
-          onLayerListUpdateLayer={this.onLayerListUpdateLayer}
-          onLayerListDeleteLayer={this.onLayerListDeleteLayer}
-        />
+        <div className="panel">
+          <Settings
+            settings={editor.settings}
+            onSettingsUpdateSetting={this.onSettingsUpdateSetting}
+          />
+          <LayerList
+            layers={editor.layers}
+            onLayerListUpdateLayer={this.onLayerListUpdateLayer}
+            onLayerListDeleteLayer={this.onLayerListDeleteLayer}
+          />
+          <button onClick={this.createLayer}>Add Layer</button>
+        </div>
+
         <Canvas
+          settings={editor.settings}
           layers={editor.layers}
         />
 
-        <button onClick={this.createLayer}>Add Layer</button>
       </div>
     );
   }
 }
+
 
 /////////////////////////////////////
 //
@@ -73,6 +86,7 @@ Editor.propTypes = {
   editor: shape({
     layers: array.isRequired
   }).isRequired,
+  updateSetting: func.isRequired,
   createLayer: func.isRequired,
   updateLayer: func.isRequired,
   deleteLayer: func.isRequired
