@@ -5,5 +5,5 @@ export default {
   backgroundColor: '#FFFFFF',
   blendMode: 'normal',
   blur: false,
-  blurAmmount: '2'
+  blurAmount: '2'
 };

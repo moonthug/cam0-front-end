@@ -1,17 +1,18 @@
 /* eslint-disable import/no-named-as-default */
 import React from 'react';
+// import { AnimatedSwitch } from 'react-router-transition';
 import PropTypes from 'prop-types';
-import { Switch, NavLink, Route, Link } from 'react-router-dom';
+import { NavLink, Switch, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
-import NavigationDrawer from 'react-md/lib/NavigationDrawers';
-import FontIcon from 'react-md/lib/FontIcons';
-import ListItem from 'react-md/lib/Lists/ListItem';
-import Toolbar from 'react-md/lib/Toolbars';
+import { Icon, Menu } from 'semantic-ui-react';
 
 import HomePage from './HomePage';
 import EditorPage from '../containers/EditorPage';
 import AboutPage from './AboutPage';
 import NotFoundPage from './NotFoundPage';
+
+import '../styles/component/app.scss';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -25,31 +26,36 @@ class App extends React.Component {
   // RENDER
 
   render() {
-    const activeStyle = { color: 'blue' };
-
-    const navItems = [
-      { label: 'Home',    to: '/',        leftIcon: <FontIcon>home</FontIcon> },
-      { label: 'Editor',  to: '/editor',  leftIcon: <FontIcon>eject</FontIcon> },
-      { label: 'About',   to: '/about',   leftIcon: <FontIcon>eject</FontIcon> }
-    ];
+    const activeStyle = { color: 'grey' };
 
     return (
-      <div className="container">
-        <NavigationDrawer
-          drawerTitle="Spotify"
-          navItems={navItems}
-          toolbarTitle={'Home'}
-          // toolbarChildren={toolbarChildren}
-          desktopDrawerType={NavigationDrawer.DrawerType.FULL_HEIGHT}
-        >
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/editor" component={EditorPage} />
-              <Route path="/about" component={AboutPage} />
-              <Route component={NotFoundPage} />
-            </Switch>
-        </NavigationDrawer>
-      </div>
+      <main>
+
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>cam0</title>
+          <link rel="canonical" href="http://cam0.org" />
+        </Helmet>
+
+        <Menu>
+          <Menu.Item>
+            <NavLink to="/" activeStyle={activeStyle}>
+              <img width="32px" src="images/logo.png" />
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item><NavLink to="/editor" activeStyle={activeStyle}><Icon name="edit"/> Editor</NavLink></Menu.Item>
+          <Menu.Item><NavLink to="/about" activeStyle={activeStyle}><Icon name="question"/> About</NavLink></Menu.Item>
+        </Menu>
+
+        <div className="main container">
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/editor" component={EditorPage} />
+            <Route path="/about" component={AboutPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </div>
+      </main>
     );
   }
 }

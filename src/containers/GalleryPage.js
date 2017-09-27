@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import * as actions from '../actions/editorActions';
+import * as actions from '../actions/galleryActions';
 
-import Editor from '../components/editor';
-
-export const EditorPage = (props) => {
+export const GalleryPage = () => {
 
 
   /////////////////////////////////////
@@ -16,14 +14,7 @@ export const EditorPage = (props) => {
 
   return (
     <div>
-      <Editor
-        updateSetting={props.actions.updateSetting}
-        createLayer={props.actions.createLayer}
-        updateLayer={props.actions.updateLayer}
-        duplicateLayer={props.actions.duplicateLayer}
-        deleteLayer={props.actions.deleteLayer}
-        editor={props.editor}
-      />
+    <h1>Gallery</h1>
     </div>
   );
 };
@@ -32,9 +23,9 @@ export const EditorPage = (props) => {
 //
 // PROP VALIDATION
 
-EditorPage.propTypes = {
+GalleryPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  editor: PropTypes.object.isRequired
+  gallery: PropTypes.object.isRequired
 };
 
 
@@ -44,7 +35,7 @@ EditorPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    editor: state.editor
+    gallery: state.gallery
   };
 }
 
@@ -62,4 +53,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EditorPage);
+)(GalleryPage);

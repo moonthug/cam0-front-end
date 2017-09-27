@@ -20,8 +20,8 @@ class Canvas extends React.Component {
 
   componentWillMount() {
     this.canvas = document.createElement('canvas');
-    this.canvas.setAttribute('width', 800);
-    this.canvas.setAttribute('height', 400);
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
     this.ctx = this.canvas.getContext('2d');
 
     this.canvas2 = document.createElement('canvas');
@@ -30,6 +30,14 @@ class Canvas extends React.Component {
     this.ctx2 = this.canvas2.getContext('2d');
 
     this.noise = new Noise(Math.random());
+
+    window.addEventListener('resize', () => {
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+      this.canvas2.width = this.canvas.width;
+      this.canvas2.height = this.canvas.height;
+      this.draw();
+    });
   }
 
   componentDidMount() {
@@ -47,9 +55,16 @@ class Canvas extends React.Component {
   // CANVAS
 
   draw() {
+    // @TODO Optimise this
+    //  - Cache previous layer pixels?
+
     const threshold = (variable, min, max, val) => {
       return (variable < min || variable > max) ? 0 : (val) ? val : variable;
     };
+
+    // const map = function (value, domainMin, domainMax, scaleMin, scaleMax) {
+    //   return (value - domainMin) * (scaleMax - scaleMin) / (domainMax - domainMin) + scaleMin;
+    // };
 
     const parseColor = (colorString) => {
       let m = colorString.match(/^#([0-9a-f]{6})$/i)[1];
@@ -75,7 +90,7 @@ class Canvas extends React.Component {
     this.ctx.closePath();
 
     // LAYERS
-    this.props.layers.forEach((layer, i) => {
+    this.props.layers.forEach((layer) => {
       this.noise.seed(layer.noiseSeed);
 
       let image = this.ctx2.getImageData(0, 0, this.canvas.width, this.canvas.height);

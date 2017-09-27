@@ -1,81 +1,139 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Layer = ({ layer, onLayerUpdate, onLayerRemove }) => {
+import { Button, Form, Icon } from 'semantic-ui-react';
 
-  const _onChange = (e, formatter) => {
+const Layer = ({ layer, onLayerUpdate, onLayerDuplicate, onLayerRemove }) => {
+
+
+  /////////////////////////////////////
+  //
+  // EVENT HANDLERS
+
+  const onChange = (e, data) => {
+    if(data.type === 'checkbox')
+      data.value = data.checked;
+
+    if(data.type === 'range')
+      data.value = parseFloat(data.value);
+
     onLayerUpdate({
       layerId: layer.id,
-      key: e.target.getAttribute('name'),
-      value: formatter ? formatter(e.target.value) : e.target.value
+      key: data.name,
+      value: data.value
     });
   };
-
-  const onChangeInt = (e) => { _onChange(e, parseInt); };
-  const onChangeFloat = (e) => { _onChange(e, parseFloat); };
-  const onChangeString = (e) => { _onChange(e); };
 
   const onDelete = (e) => {
     onLayerRemove(layer.id);
     e.preventDefault();
   };
 
+  const onDuplicate = (e) => {
+    onLayerDuplicate(layer.id);
+    e.preventDefault();
+  };
+
+
+  /////////////////////////////////////
+  //
+  // RENDER
+
   return (
-    <div className="layer">
-      <p>Layer [{ JSON.stringify(layer) }]</p>
-      <button onClick={onDelete}>x</button>
-      <input
-        type="color"
-        name="color"
-        defaultValue={layer.color}
-        onChange={onChangeString}
-      />
-      <input
-        type="range"
-        max="32767"
-        name="noiseSeed"
-        defaultValue={layer.noiseSeed}
-        onChange={onChangeInt}
-      />
-      <input
-        type="range"
-        max="255"
-        name="alpha"
-        defaultValue={layer.alpha}
-        onChange={onChangeInt}
-      />
-      <input
-        type="range"
-        max="1"
-        step="0.01"
-        name="thresholdMin"
-        defaultValue={layer.thresholdMin}
-        onChange={onChangeFloat}
-      />
-      <input
-        type="range"
-        max="1"
-        step="0.01"
-        name="thresholdMax"
-        defaultValue={layer.thresholdMax}
-        onChange={onChangeFloat}
-      />
-      <input
-        type="range"
-        max="1000"
-        name="frequency"
-        defaultValue={layer.frequency}
-        onChange={onChangeFloat}
-      />
-      <input
-        type="range"
-        max="2"
-        step="0.01"
-        name="amplitude"
-        defaultValue={layer.amplitude}
-        onChange={onChangeFloat}
-      />
-     </div>
+    <Form className="columns">
+
+      <Form.Group widths="equal">
+        <Form.Field>
+          <Form.Input
+            label="Seed"
+            type="range"
+            max="1000000"
+            name="noiseSeed"
+            defaultValue={layer.noiseSeed}
+            onChange={onChange}
+          />
+        </Form.Field>
+      </Form.Group>
+
+      <Form.Group widths="equal">
+        <Form.Field>
+          <Form.Input
+            label="Color"
+            type="color"
+            name="color"
+            defaultValue={layer.color}
+            onChange={onChange}
+          />
+        </Form.Field>
+
+        <Form.Field>
+          <Form.Input
+            label="Alpha"
+            type="range"
+            max="255"
+            name="alpha"
+            defaultValue={layer.alpha}
+            onChange={onChange}
+          />
+        </Form.Field>
+      </Form.Group>
+
+      <Form.Group widths="equal">
+        <Form.Field>
+          <Form.Input
+            label="Threshold Min"
+            type="range"
+            max="1"
+            step="0.01"
+            name="thresholdMin"
+            defaultValue={layer.thresholdMin}
+            onChange={onChange}
+          />
+        </Form.Field>
+
+        <Form.Field>
+          <Form.Input
+            label="Threshold Max"
+            type="range"
+            max="1"
+            step="0.01"
+            name="thresholdMax"
+            defaultValue={layer.thresholdMax}
+            onChange={onChange}
+          />
+        </Form.Field>
+      </Form.Group>
+
+      <Form.Group widths="equal">
+        <Form.Field>
+          <Form.Input
+            label="Frequency"
+            type="range"
+            max="1000"
+            name="frequency"
+            defaultValue={layer.frequency}
+            onChange={onChange}
+          />
+        </Form.Field>
+
+        <Form.Field>
+          <Form.Input
+            label="Amplitude"
+            type="range"
+            max="2"
+            step="0.01"
+            name="amplitude"
+            defaultValue={layer.amplitude}
+            onChange={onChange}
+          />
+        </Form.Field>
+      </Form.Group>
+
+      <Button.Group>
+        <Button positive onClick={onDuplicate}><Icon name="clone"/>Clone</Button>
+        <Button negative onClick={onDelete}><Icon name="delete"/>Delete</Button>
+      </Button.Group>
+    </Form>
   );
 };
 
@@ -99,6 +157,7 @@ Layer.propTypes = {
     amplitude: number.isRequired,
   }).isRequired,
   onLayerUpdate: func.isRequired,
+  onLayerDuplicate: func.isRequired,
   onLayerRemove: func.isRequired
 };
 

@@ -9,7 +9,8 @@
     "preinstall": "node tools/nodeVersionCheck.js",
     "start-message": "babel-node tools/startMessage.js",
     "prestart": "npm-run-all --parallel start-message",
-    "start": "npm-run-all --parallel test:watch open:src lint:watch",
+    "start": "npm-run-all --parallel test:watch open:src lint:watch start:server",
+    "start:server": "json-server -p 4000 docs/db.json",
     "open:src": "babel-node tools/srcServer.js",
     "open:dist": "babel-node tools/distServer.js",
     "lint": "esw webpack.config.* src tools --color",
@@ -33,12 +34,15 @@
     "object-assign": "4.1.0",
     "react": "15.5.4",
     "react-dom": "15.5.4",
-    "react-md": "1.1.4",
+    "react-helmet": "5.2.0",
     "react-redux": "5.0.5",
     "react-router-dom": "4.2.2",
     "react-router-redux": "5.0.0-alpha.6",
+    "react-router-transition": "1.0.1",
     "redux": "3.6.0",
-    "redux-thunk": "2.1.0"
+    "redux-thunk": "2.1.0",
+    "semantic-ui-css": "2.2.12",
+    "semantic-ui-react": "0.74.1"
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",

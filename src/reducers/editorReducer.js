@@ -7,8 +7,6 @@ import {
 
 import initialState from './initialState';
 
-import defaultLayer from '../constants/defaults/layer';
-
 export default function editorReducer(state = initialState.editor, action) {
   switch (action.type) {
 
@@ -23,17 +21,16 @@ export default function editorReducer(state = initialState.editor, action) {
     }
 
     case EDITOR_CREATE_LAYER: {
-      let layerId = state.layerInc + 1;
-      let newLayer = {
-        ...defaultLayer,
-        id: layerId,
-        noiseSeed: Math.random() * 32767,
-      };
+      let layers = state.layers.map((layer, i) => {
+        let newLayer = Object.assign({}, layer);
+        newLayer.id = i;
+        return newLayer;
+      });
+      layers.push({ ...action.newLayer, id: layers.length });
 
       return {
         ...state,
-        layerInc: layerId,
-        layers: [...state.layers, newLayer]
+        layers
       };
     }
 
