@@ -75,6 +75,7 @@
     "eslint": "4.2.0",
     "eslint-config-prettier": "^2.6.0",
     "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "7.3.0",
     "eslint-watch": "3.1.2",
     "extract-text-webpack-plugin": "3.0.0-rc.2",
@@ -90,7 +91,7 @@
     "npm-run-all": "4.0.2",
     "opn-cli": "3.1.0",
     "postcss-loader": "1.2.1",
-    "prettier": "1.7.2",
+    "prettier": "^1.7.2",
     "prompt": "1.0.0",
     "prop-types": "15.5.10",
     "react-hot-loader": "3.0.0-beta.6",
@@ -107,10 +108,9 @@
     "webpack-hot-middleware": "2.18.2",
     "webpack-md5-hash": "0.0.5"
   },
-  "keywords": [],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/moonthug/cam0-front-end"
   },
   "jest": {
     "moduleNameMapper": {
