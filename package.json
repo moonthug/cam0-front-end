@@ -10,7 +10,8 @@
     "precommit": "lint-staged",
     "start-message": "babel-node tools/startMessage.js",
     "prestart": "npm-run-all --parallel start-message",
-    "start": "npm-run-all --parallel test:watch open:src lint:watch start:server",
+    "start":
+      "npm-run-all --parallel test:watch open:src lint:watch start:server",
     "start:server": "json-server -p 4000 docs/db.json",
     "open:src": "babel-node tools/srcServer.js",
     "open:dist": "babel-node tools/distServer.js",
@@ -23,7 +24,8 @@
     "test": "jest -u",
     "test:CI": "babel-node tools/testCi.js",
     "test:cover": "npm run test -- --coverage ",
-    "test:cover:CI": "npm run test:CI -- --coverage && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
+    "test:cover:CI":
+      "npm run test:CI -- --coverage && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "test:watch": "npm run test -- --watch",
     "open:cover": "npm run test:cover && opn ./coverage/lcov-report/index.html",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js",
@@ -82,10 +84,12 @@
     "file-loader": "0.11.2",
     "history": "4.6.0",
     "html-webpack-plugin": "2.29.0",
+    "husky": "^0.14.3",
     "identity-obj-proxy": "3.0.0",
     "jest": "20.0.4",
     "jest-cli": "20.0.4",
     "json-loader": "0.5.4",
+    "lint-staged": "^4.2.3",
     "mockdate": "2.0.1",
     "node-sass": "4.5.3",
     "npm-run-all": "4.0.2",
@@ -114,7 +118,8 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/tools/assetsTransformer.js",
       "\\.(css|less)$": "<rootDir>/tools/assetsTransformer.js"
     }
   }
