@@ -7,7 +7,6 @@ import defaultEditorSettings from '../constants/defaults/editorSettings';
 // import defaultLayer from '../constants/defaults/layer';
 
 describe('Reducers::Editor', () => {
-
   it('should set initial state by default', () => {
     const action = { type: 'unknown' };
     const expected = initialState.editor;
@@ -16,7 +15,10 @@ describe('Reducers::Editor', () => {
   });
 
   it('should handle EDITOR_UPDATE_SETTING', () => {
-    const action = { type: ActionTypes.EDITOR_UPDATE_SETTING, update: { key: 'backgroundColor', value: '#FFCC00' } };
+    const action = {
+      type: ActionTypes.EDITOR_UPDATE_SETTING,
+      update: { key: 'backgroundColor', value: '#FFCC00' }
+    };
     const state = {
       settings: defaultEditorSettings
     };
@@ -39,14 +41,23 @@ describe('Reducers::Editor', () => {
   // });
 
   it('should handle EDITOR_UPDATE_LAYER', () => {
-    const action = { type: ActionTypes.EDITOR_UPDATE_LAYER, update: { layerId: 1, key: 'tolerance', value: 50 } };
+    const action = {
+      type: ActionTypes.EDITOR_UPDATE_LAYER,
+      update: { layerId: 1, key: 'tolerance', value: 50 }
+    };
     const state = {
       layerInc: 2,
-      layers: [ { id: 1, tolerance: 255, color: '#FF0000' }, { id: 2, tolerance: 255, color: '#FF0000' } ]
+      layers: [
+        { id: 1, tolerance: 255, color: '#FF0000' },
+        { id: 2, tolerance: 255, color: '#FF0000' }
+      ]
     };
     const expected = {
       layerInc: 2,
-      layers: [ { id: 1, tolerance: 50, color: '#FF0000' }, { id: 2, tolerance: 255, color: '#FF0000' } ]
+      layers: [
+        { id: 1, tolerance: 50, color: '#FF0000' },
+        { id: 2, tolerance: 255, color: '#FF0000' }
+      ]
     };
 
     expect(reducer(state, action).layers).toEqual(expected.layers);

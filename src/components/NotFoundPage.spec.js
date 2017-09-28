@@ -10,5 +10,4 @@ describe('<NotFoundPage />', () => {
     const actual = wrapper.find('h1').length;
     expect(actual).toEqual(1);
   });
-
 });

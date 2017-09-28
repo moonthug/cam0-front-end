@@ -9,7 +9,6 @@ import initialState from './initialState';
 
 export default function editorReducer(state = initialState.editor, action) {
   switch (action.type) {
-
     case EDITOR_UPDATE_SETTING: {
       return {
         ...state,

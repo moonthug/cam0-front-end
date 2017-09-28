@@ -6,8 +6,6 @@ import { Accordion, Icon } from 'semantic-ui-react';
 import Layer from './Layer';
 
 class LayerList extends React.Component {
-
-
   /////////////////////////////////////
   //
   // CONSTRUCTOR
@@ -15,7 +13,7 @@ class LayerList extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state =  {
+    this.state = {
       activeIndex: 0
     };
 
@@ -24,7 +22,6 @@ class LayerList extends React.Component {
     this.onLayerRemove = this.onLayerRemove.bind(this);
     this.onAccordionTitleClick = this.onAccordionTitleClick.bind(this);
   }
-
 
   /////////////////////////////////////
   //
@@ -50,7 +47,6 @@ class LayerList extends React.Component {
     this.setState({ activeIndex: newIndex });
   }
 
-
   /////////////////////////////////////
   //
   // RENDER
@@ -59,7 +55,7 @@ class LayerList extends React.Component {
     const { activeIndex } = this.state;
     const { layers } = this.props;
 
-    const renderLayer = (layer) => {
+    const renderLayer = layer => {
       return (
         <Layer
           layer={layer}
@@ -75,10 +71,16 @@ class LayerList extends React.Component {
       return layers.map((layer, i) => {
         return (
           <div key={i}>
-            <Accordion.Title active={activeIndex === i} index={i} onClick={this.onAccordionTitleClick}>
-              <Icon name="theme" style={{ color: layer.color}} /> Layer {i}
+            <Accordion.Title
+              active={activeIndex === i}
+              index={i}
+              onClick={this.onAccordionTitleClick}
+            >
+              <Icon name="theme" style={{ color: layer.color }} /> Layer {i}
             </Accordion.Title>
-            <Accordion.Content active={activeIndex === i} content={renderLayer(layer)}
+            <Accordion.Content
+              active={activeIndex === i}
+              content={renderLayer(layer)}
             />
           </div>
         );
@@ -87,12 +89,11 @@ class LayerList extends React.Component {
 
     return (
       <Accordion className="layer-list" styled>
-        { renderLayerElements() }
+        {renderLayerElements()}
       </Accordion>
     );
   }
 }
-
 
 /////////////////////////////////////
 //
@@ -106,7 +107,6 @@ LayerList.propTypes = {
   onLayerListDuplicateLayer: func.isRequired,
   onLayerListDeleteLayer: func.isRequired
 };
-
 
 /////////////////////////////////////
 //

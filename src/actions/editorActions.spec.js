@@ -14,7 +14,7 @@ describe('Actions', () => {
       update
     };
 
-    expect(typeof (ActionCreators.updateSetting(update))).toEqual('function');
+    expect(typeof ActionCreators.updateSetting(update)).toEqual('function');
     ActionCreators.updateSetting(update)(dispatch);
 
     expect(dispatch).toBeCalledWith(expected);
@@ -40,7 +40,7 @@ describe('Actions', () => {
       update
     };
 
-    expect(typeof (ActionCreators.updateLayer(update))).toEqual('function');
+    expect(typeof ActionCreators.updateLayer(update)).toEqual('function');
     ActionCreators.updateLayer(update)(dispatch);
 
     expect(dispatch).toBeCalledWith(expected);
@@ -54,7 +54,7 @@ describe('Actions', () => {
       layerId
     };
 
-    expect(typeof (ActionCreators.deleteLayer(layerId))).toEqual('function');
+    expect(typeof ActionCreators.deleteLayer(layerId)).toEqual('function');
     ActionCreators.deleteLayer(layerId)(dispatch);
 
     expect(dispatch).toBeCalledWith(expected);

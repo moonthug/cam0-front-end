@@ -7,15 +7,16 @@ import { EditorPage } from './EditorPage';
 import Editor from '../components/editor';
 
 describe('<EditorPage />', () => {
-
   const actions = {
-    updateSetting: () => { },
-    createLayer: () => { },
-    updateLayer: () => { },
-    deleteLayer: () => { },
+    updateSetting: () => {},
+    createLayer: () => {},
+    updateLayer: () => {},
+    deleteLayer: () => {}
   };
 
-  const wrapper = shallow(<EditorPage actions={actions} editor={initialState.editor}/>);
+  const wrapper = shallow(
+    <EditorPage actions={actions} editor={initialState.editor} />
+  );
 
   it('should contain <Editor />', () => {
     const actual = wrapper.find(Editor).length;

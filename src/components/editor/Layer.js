@@ -4,18 +4,14 @@ import PropTypes from 'prop-types';
 import { Button, Form, Icon } from 'semantic-ui-react';
 
 const Layer = ({ layer, onLayerUpdate, onLayerDuplicate, onLayerRemove }) => {
-
-
   /////////////////////////////////////
   //
   // EVENT HANDLERS
 
   const onChange = (e, data) => {
-    if(data.type === 'checkbox')
-      data.value = data.checked;
+    if (data.type === 'checkbox') data.value = data.checked;
 
-    if(data.type === 'range')
-      data.value = parseFloat(data.value);
+    if (data.type === 'range') data.value = parseFloat(data.value);
 
     onLayerUpdate({
       layerId: layer.id,
@@ -24,16 +20,15 @@ const Layer = ({ layer, onLayerUpdate, onLayerDuplicate, onLayerRemove }) => {
     });
   };
 
-  const onDelete = (e) => {
+  const onDelete = e => {
     onLayerRemove(layer.id);
     e.preventDefault();
   };
 
-  const onDuplicate = (e) => {
+  const onDuplicate = e => {
     onLayerDuplicate(layer.id);
     e.preventDefault();
   };
-
 
   /////////////////////////////////////
   //
@@ -41,7 +36,6 @@ const Layer = ({ layer, onLayerUpdate, onLayerDuplicate, onLayerRemove }) => {
 
   return (
     <Form className="columns">
-
       <Form.Group widths="equal">
         <Form.Field>
           <Form.Input
@@ -130,13 +124,16 @@ const Layer = ({ layer, onLayerUpdate, onLayerDuplicate, onLayerRemove }) => {
       </Form.Group>
 
       <Button.Group>
-        <Button positive onClick={onDuplicate}><Icon name="clone"/>Clone</Button>
-        <Button negative onClick={onDelete}><Icon name="delete"/>Delete</Button>
+        <Button positive onClick={onDuplicate}>
+          <Icon name="clone" />Clone
+        </Button>
+        <Button negative onClick={onDelete}>
+          <Icon name="delete" />Delete
+        </Button>
       </Button.Group>
     </Form>
   );
 };
-
 
 /////////////////////////////////////
 //
@@ -154,13 +151,12 @@ Layer.propTypes = {
     thresholdMax: number.isRequired,
     blendMode: string.isRequired,
     frequency: number.isRequired,
-    amplitude: number.isRequired,
+    amplitude: number.isRequired
   }).isRequired,
   onLayerUpdate: func.isRequired,
   onLayerDuplicate: func.isRequired,
   onLayerRemove: func.isRequired
 };
-
 
 /////////////////////////////////////
 //

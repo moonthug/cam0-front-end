@@ -10,5 +10,5 @@ export default {
   thresholdMax: 0.9,
   blendMode: 'multiply',
   frequency: 200,
-  amplitude: 1,
+  amplitude: 1
 };

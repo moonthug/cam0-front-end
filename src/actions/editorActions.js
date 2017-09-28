@@ -2,7 +2,6 @@ import * as types from '../constants/actionTypes';
 
 import defaultLayer from '../constants/defaults/layer';
 
-
 ///////////////////////////////////////
 //
 // PRIVATE METHODS
@@ -14,7 +13,7 @@ function _createLayer(fromLayer) {
     type: types.EDITOR_CREATE_LAYER,
     newLayer: {
       ...fromLayer,
-      noiseSeed: Math.random() * 1000000,
+      noiseSeed: Math.random() * 1000000
     }
   };
 }
@@ -24,7 +23,7 @@ function _createLayer(fromLayer) {
 // ACTIONS
 
 export function updateSetting(update) {
-  return function (dispatch) {
+  return function(dispatch) {
     return dispatch({
       type: types.EDITOR_UPDATE_SETTING,
       update
@@ -32,15 +31,14 @@ export function updateSetting(update) {
   };
 }
 
-
 export function createLayer() {
-  return function (dispatch) {
+  return function(dispatch) {
     return dispatch(_createLayer());
   };
 }
 
 export function updateLayer(update) {
-  return function (dispatch) {
+  return function(dispatch) {
     return dispatch({
       type: types.EDITOR_UPDATE_LAYER,
       update
@@ -49,7 +47,7 @@ export function updateLayer(update) {
 }
 
 export function duplicateLayer(layerId) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     let duplicate = null;
     getState().editor.layers.forEach(layer => {
       if (layer.id === layerId) {
@@ -62,7 +60,7 @@ export function duplicateLayer(layerId) {
 }
 
 export function deleteLayer(layerId) {
-  return function (dispatch) {
+  return function(dispatch) {
     return dispatch({
       type: types.EDITOR_DELETE_LAYER,
       layerId

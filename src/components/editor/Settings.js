@@ -1,34 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Accordion, Button, Checkbox, Dropdown, Form, Icon } from 'semantic-ui-react';
+import {
+  Accordion,
+  Button,
+  Checkbox,
+  Dropdown,
+  Form,
+  Icon
+} from 'semantic-ui-react';
 
 import { toDropdownOptions } from '../../utils/arrayHelper';
 
 import blendModes from '../../constants/blendModes';
 import themes from '../../constants/themes';
 
-const Settings = ({ settings, onSettingsUpdateSetting, onSettingsCreateLayer }) => {
-
-
+const Settings = ({
+  settings,
+  onSettingsUpdateSetting,
+  onSettingsCreateLayer
+}) => {
   /////////////////////////////////////
   //
   // EVENT HANDLERS
 
   const onChange = (e, data) => {
-    if(data.type === 'checkbox')
-      data.value = data.checked;
+    if (data.type === 'checkbox') data.value = data.checked;
 
-
-    if(data.type === 'range')
-      data.value = parseFloat(data.value);
+    if (data.type === 'range') data.value = parseFloat(data.value);
 
     onSettingsUpdateSetting({
       key: data.name,
       value: data.value
     });
   };
-
 
   /////////////////////////////////////
   //
@@ -37,11 +42,10 @@ const Settings = ({ settings, onSettingsUpdateSetting, onSettingsCreateLayer }) 
   return (
     <Accordion className="settings" styled>
       <Accordion.Title active>
-        <Icon name="theme"/> Settings
+        <Icon name="theme" /> Settings
       </Accordion.Title>
       <Accordion.Content active>
         <Form>
-
           <Form.Group widths="equal">
             <Dropdown
               placeholder="Theme <none>"
@@ -101,27 +105,26 @@ const Settings = ({ settings, onSettingsUpdateSetting, onSettingsCreateLayer }) 
           </Form.Group>
         </Form>
         <Button.Group>
-          <Button onClick={onSettingsCreateLayer} positive>Add Layer</Button>
+          <Button onClick={onSettingsCreateLayer} positive>
+            Add Layer
+          </Button>
         </Button.Group>
       </Accordion.Content>
-
     </Accordion>
-);
+  );
 };
-
 
 /////////////////////////////////////
 //
 // PROP VALIDATION
 
-const {func, object} = PropTypes;
+const { func, object } = PropTypes;
 
 Settings.propTypes = {
   settings: object.isRequired,
   onSettingsCreateLayer: func.isRequired,
-  onSettingsUpdateSetting: func.isRequired,
+  onSettingsUpdateSetting: func.isRequired
 };
-
 
 /////////////////////////////////////
 //

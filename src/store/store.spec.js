@@ -12,7 +12,6 @@
 
 describe('Store', () => {
   // afterAll(() => MockDate.reset());
-
   // it('should display results when necessary data is provided', () => {
   //   const store = createStore(rootReducer, initialState);
   //
@@ -39,7 +38,6 @@ describe('Store', () => {
   //
   //   expect(actual.editor).toEqual(expected);
   // });
-
   // it('should not display results when necessary data is not provided', () => {
   //   const store = createStore(rootReducer, initialState);
   //
@@ -72,8 +70,6 @@ describe('Store', () => {
   //
   //   expect(actual.fuelSavings).toEqual(expected);
   // });
-
-
   // it('should handle a flurry of actions', () => {
   //   const store = createStore(rootReducer, initialState);
   //

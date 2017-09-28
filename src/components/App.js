@@ -19,8 +19,6 @@ import '../styles/component/app.scss';
 // component at the top-level.
 
 class App extends React.Component {
-
-
   /////////////////////////////////////
   //
   // RENDER
@@ -30,7 +28,6 @@ class App extends React.Component {
 
     return (
       <main>
-
         <Helmet>
           <meta charSet="utf-8" />
           <title>cam0</title>
@@ -43,8 +40,16 @@ class App extends React.Component {
               <img width="32px" src="images/logo.png" />
             </NavLink>
           </Menu.Item>
-          <Menu.Item><NavLink to="/editor" activeStyle={activeStyle}><Icon name="edit"/> Editor</NavLink></Menu.Item>
-          <Menu.Item><NavLink to="/about" activeStyle={activeStyle}><Icon name="question"/> About</NavLink></Menu.Item>
+          <Menu.Item>
+            <NavLink to="/editor" activeStyle={activeStyle}>
+              <Icon name="edit" /> Editor
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item>
+            <NavLink to="/about" activeStyle={activeStyle}>
+              <Icon name="question" /> About
+            </NavLink>
+          </Menu.Item>
         </Menu>
 
         <div className="main container">
@@ -60,7 +65,6 @@ class App extends React.Component {
   }
 }
 
-
 /////////////////////////////////////
 //
 // PROP VALIDATION
@@ -68,7 +72,6 @@ class App extends React.Component {
 App.propTypes = {
   children: PropTypes.element
 };
-
 
 /////////////////////////////////////
 //

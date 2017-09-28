@@ -40,7 +40,7 @@ browserSync({
           timings: false,
           chunks: false,
           chunkModules: false
-        },
+        }
 
         // for other settings see
         // https://webpack.js.org/guides/development/#using-webpack-dev-middleware
@@ -53,7 +53,5 @@ browserSync({
 
   // no need to watch '*.js' here, webpack will take care of it for us,
   // including full page reloads if HMR won't work
-  files: [
-    'src/*.html'
-  ]
+  files: ['src/*.html']
 });

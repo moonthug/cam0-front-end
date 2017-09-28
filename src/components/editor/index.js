@@ -10,8 +10,6 @@ import LayerList from './LayerList';
 import '../../styles/component/editor.scss';
 
 class Editor extends React.Component {
-
-
   /////////////////////////////////////
   //
   // CONSTRUCTOR
@@ -25,7 +23,6 @@ class Editor extends React.Component {
     this.onLayerListDuplicateLayer = this.onLayerListDuplicateLayer.bind(this);
     this.onLayerListDeleteLayer = this.onLayerListDeleteLayer.bind(this);
   }
-
 
   /////////////////////////////////////
   //
@@ -61,9 +58,7 @@ class Editor extends React.Component {
     return (
       <Grid className="editor">
         <Grid.Row>
-
           <Grid.Column width="4" floated="right">
-
             <Settings
               settings={editor.settings}
               onSettingsUpdateSetting={this.onSettingsUpdateSetting}
@@ -76,20 +71,14 @@ class Editor extends React.Component {
               onLayerListDuplicateLayer={this.onLayerListDuplicateLayer}
               onLayerListDeleteLayer={this.onLayerListDeleteLayer}
             />
-
           </Grid.Column>
 
-          <Canvas
-            settings={editor.settings}
-            layers={editor.layers}
-          />
-
+          <Canvas settings={editor.settings} layers={editor.layers} />
         </Grid.Row>
       </Grid>
     );
   }
 }
-
 
 /////////////////////////////////////
 //
@@ -107,7 +96,6 @@ Editor.propTypes = {
   duplicateLayer: func.isRequired,
   deleteLayer: func.isRequired
 };
-
 
 /////////////////////////////////////
 //

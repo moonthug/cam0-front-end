@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import * as actions from '../actions/editorActions';
 
 import Editor from '../components/editor';
 
-export const EditorPage = (props) => {
-
-
+export const EditorPage = props => {
   /////////////////////////////////////
   //
   // RENDER
@@ -37,7 +35,6 @@ EditorPage.propTypes = {
   editor: PropTypes.object.isRequired
 };
 
-
 /////////////////////////////////////
 //
 // REDUX
@@ -54,12 +51,8 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-
 /////////////////////////////////////
 //
 // EXPORT
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditorPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditorPage);

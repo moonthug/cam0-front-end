@@ -4,7 +4,7 @@ export default {
   editor: {
     layerInc: 0,
     layers: [],
-    settings: editorSettings,
+    settings: editorSettings
   },
   gallery: {
     currentPage: 1,

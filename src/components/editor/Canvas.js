@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Noise }  from 'noisejs';
+import { Noise } from 'noisejs';
 
 class Canvas extends React.Component {
-
-
   /////////////////////////////////////
   //
   // CONSTRUCTOR
@@ -12,7 +10,6 @@ class Canvas extends React.Component {
   constructor(props, context) {
     super(props, context);
   }
-
 
   /////////////////////////////////////
   //
@@ -49,7 +46,6 @@ class Canvas extends React.Component {
     this.draw();
   }
 
-
   /////////////////////////////////////
   //
   // CANVAS
@@ -59,23 +55,22 @@ class Canvas extends React.Component {
     //  - Cache previous layer pixels?
 
     const threshold = (variable, min, max, val) => {
-      return (variable < min || variable > max) ? 0 : (val) ? val : variable;
+      return variable < min || variable > max ? 0 : val ? val : variable;
     };
 
     // const map = function (value, domainMin, domainMax, scaleMin, scaleMax) {
     //   return (value - domainMin) * (scaleMax - scaleMin) / (domainMax - domainMin) + scaleMin;
     // };
 
-    const parseColor = (colorString) => {
+    const parseColor = colorString => {
       let m = colorString.match(/^#([0-9a-f]{6})$/i)[1];
-      if(m) {
+      if (m) {
         return [
-          parseInt(m.substr(0, 2),16),
-          parseInt(m.substr(2, 2),16),
-          parseInt(m.substr(4, 2),16)
+          parseInt(m.substr(0, 2), 16),
+          parseInt(m.substr(2, 2), 16),
+          parseInt(m.substr(4, 2), 16)
         ];
-      }
-      else {
+      } else {
         return [0, 0, 0];
       }
     };
@@ -90,26 +85,34 @@ class Canvas extends React.Component {
     this.ctx.closePath();
 
     // LAYERS
-    this.props.layers.forEach((layer) => {
+    this.props.layers.forEach(layer => {
       this.noise.seed(layer.noiseSeed);
 
-      let image = this.ctx2.getImageData(0, 0, this.canvas.width, this.canvas.height);
+      let image = this.ctx2.getImageData(
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+      );
       let data = image.data;
 
       let color = parseColor(layer.color);
 
       for (let x = 0; x < this.canvas.width; x++) {
         for (let y = 0; y < this.canvas.height; y++) {
-          let value = Math.abs(this.noise.perlin2(x / layer.frequency, y / layer.frequency) * layer.amplitude);
+          let value = Math.abs(
+            this.noise.perlin2(x / layer.frequency, y / layer.frequency) *
+              layer.amplitude
+          );
 
           value = threshold(value, layer.thresholdMin, layer.thresholdMax);
 
           let cell = (x + y * this.canvas.width) * 4;
 
-          data[cell]      = color[0];// * value;
-          data[cell + 1]  = color[1];// * value;
-          data[cell + 2]  = color[2];// * value;
-          data[cell + 3]  = value === 0 ? 0 : layer.alpha;
+          data[cell] = color[0]; // * value;
+          data[cell + 1] = color[1]; // * value;
+          data[cell + 2] = color[2]; // * value;
+          data[cell + 3] = value === 0 ? 0 : layer.alpha;
         }
       }
       this.ctx2.putImageData(image, 0, 0);
@@ -118,15 +121,12 @@ class Canvas extends React.Component {
       this.ctx.drawImage(this.canvas2, 0, 0);
     });
 
-    if(this.props.settings.blur === true) {
+    if (this.props.settings.blur === true) {
       this.ctx.filter = 'blur(' + this.props.settings.blurAmmount + 'px)';
-    }
-    else {
+    } else {
       this.ctx.filter = 'none';
     }
-
   }
-
 
   /////////////////////////////////////
   //
@@ -136,14 +136,13 @@ class Canvas extends React.Component {
     return (
       <div
         className="canvas"
-        ref={(node) => {
+        ref={node => {
           this.node = node;
         }}
       />
     );
   }
 }
-
 
 /////////////////////////////////////
 //
@@ -155,7 +154,6 @@ Canvas.propTypes = {
   layers: array.isRequired,
   settings: object.isRequired
 };
-
 
 /////////////////////////////////////
 //

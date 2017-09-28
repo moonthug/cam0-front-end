@@ -6,8 +6,6 @@ import { Provider } from 'react-redux';
 import App from './App';
 
 class Root extends Component {
-
-
   /////////////////////////////////////
   //
   // RENDER
@@ -24,7 +22,6 @@ class Root extends Component {
   }
 }
 
-
 /////////////////////////////////////
 //
 // PROP VALIDATION
@@ -33,7 +30,6 @@ Root.propTypes = {
   store: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
-
 
 /////////////////////////////////////
 //
