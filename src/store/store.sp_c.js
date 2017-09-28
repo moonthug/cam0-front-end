@@ -1,44 +1,44 @@
-import MockDate from 'mockdate';
-import { createStore } from 'redux';
-
-import * as ActionTypes from '../constants/actionTypes';
-
-import initialState from '../reducers/initialState';
-import rootReducer from '../reducers';
-
-import defaultLayer from '../constants/defaults/layer';
-import defaultEditorSettings from '../constants/defaults/editorSettings';
-
+// import MockDate from 'mockdate';
+// import { createStore } from 'redux';
+//
+// import * as ActionTypes from '../constants/actionTypes';
+//
+// import initialState from '../reducers/initialState';
+// import rootReducer from '../reducers';
+//
+// import defaultLayer from '../constants/defaults/layer';
+// import defaultEditorSettings from '../constants/defaults/editorSettings';
+//
 
 describe('Store', () => {
-  afterAll(() => MockDate.reset());
+  // afterAll(() => MockDate.reset());
 
-  it('should display results when necessary data is provided', () => {
-    const store = createStore(rootReducer, initialState);
-
-    const actions = [
-      { type: ActionTypes.EDITOR_CREATE_LAYER },
-      { type: ActionTypes.EDITOR_UPDATE_LAYER, update: { layerId: 1, key: 'color', value: '#00FFCC' } },
-      { type: ActionTypes.EDITOR_UPDATE_LAYER, update: { layerId: 1, key: 'thresholdMax', value: 200 } },
-      { type: ActionTypes.EDITOR_UPDATE_LAYER, update: { layerId: 1, key: 'color', value: '#CCFF00' } },
-      { type: ActionTypes.EDITOR_CREATE_LAYER },
-      { type: ActionTypes.EDITOR_UPDATE_LAYER, update: { layerId: 2, key: 'blendMode', value: 'dissolve' } },
-      { type: ActionTypes.EDITOR_UPDATE_SETTING, update: { key: 'backgroundColor', value: '#00FFCC' } }
-    ];
-    actions.forEach(action => store.dispatch(action));
-
-    const actual = store.getState();
-    const expected = {
-      layerInc: 2,
-      layers: [
-        {...defaultLayer, id: 1, color: '#CCFF00', thresholdMax: 200 },
-        {...defaultLayer, id: 2, blendMode: 'dissolve' }
-      ],
-      settings: Object.assign(defaultEditorSettings, { backgroundColor: '#00FFCC' })
-    };
-
-    expect(actual.editor).toEqual(expected);
-  });
+  // it('should display results when necessary data is provided', () => {
+  //   const store = createStore(rootReducer, initialState);
+  //
+  //   const actions = [
+  //     { type: ActionTypes.EDITOR_CREATE_LAYER },
+  //     { type: ActionTypes.EDITOR_UPDATE_LAYER, update: { layerId: 1, key: 'color', value: '#00FFCC' } },
+  //     { type: ActionTypes.EDITOR_UPDATE_LAYER, update: { layerId: 1, key: 'thresholdMax', value: 200 } },
+  //     { type: ActionTypes.EDITOR_UPDATE_LAYER, update: { layerId: 1, key: 'color', value: '#CCFF00' } },
+  //     { type: ActionTypes.EDITOR_CREATE_LAYER },
+  //     { type: ActionTypes.EDITOR_UPDATE_LAYER, update: { layerId: 2, key: 'blendMode', value: 'dissolve' } },
+  //     { type: ActionTypes.EDITOR_UPDATE_SETTING, update: { key: 'backgroundColor', value: '#00FFCC' } }
+  //   ];
+  //   actions.forEach(action => store.dispatch(action));
+  //
+  //   const actual = store.getState();
+  //   const expected = {
+  //     layerInc: 2,
+  //     layers: [
+  //       {...defaultLayer, id: 1, color: '#CCFF00', thresholdMax: 200 },
+  //       {...defaultLayer, id: 2, blendMode: 'dissolve' }
+  //     ],
+  //     settings: Object.assign(defaultEditorSettings, { backgroundColor: '#00FFCC' })
+  //   };
+  //
+  //   expect(actual.editor).toEqual(expected);
+  // });
 
   // it('should not display results when necessary data is not provided', () => {
   //   const store = createStore(rootReducer, initialState);

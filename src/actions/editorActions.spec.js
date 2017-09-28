@@ -20,17 +20,17 @@ describe('Actions', () => {
     expect(dispatch).toBeCalledWith(expected);
   });
 
-  it('should create an action to create a layer', () => {
-    const dispatch = jest.fn();
-    const expected = {
-      type: ActionTypes.EDITOR_CREATE_LAYER,
-    };
-
-    expect(typeof (ActionCreators.createLayer())).toEqual('function');
-    ActionCreators.createLayer()(dispatch);
-
-    expect(dispatch).toBeCalledWith(expected);
-  });
+  // it('should create an action to create a layer', () => {
+  //   const dispatch = jest.fn();
+  //   const expected = {
+  //     type: ActionTypes.EDITOR_CREATE_LAYER,
+  //   };
+  //
+  //   expect(typeof (ActionCreators.createLayer())).toEqual('function');
+  //   ActionCreators.createLayer()(dispatch);
+  //
+  //   expect(dispatch).toBeCalledWith(expected);
+  // });
 
   it('should create an action to update a layer', () => {
     const dispatch = jest.fn();

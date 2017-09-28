@@ -4,7 +4,7 @@ import reducer from './editorReducer';
 import initialState from './initialState';
 
 import defaultEditorSettings from '../constants/defaults/editorSettings';
-import defaultLayer from '../constants/defaults/layer';
+// import defaultLayer from '../constants/defaults/layer';
 
 describe('Reducers::Editor', () => {
 
@@ -27,16 +27,16 @@ describe('Reducers::Editor', () => {
     expect(reducer(state, action).settings).toEqual(expected.settings);
   });
 
-  it('should handle EDITOR_CREATE_LAYER', () => {
-    const action = { type: ActionTypes.EDITOR_CREATE_LAYER };
-    const expected = {
-      layerInc: 1,
-      layers: [ {...defaultLayer, noiseSeed: 0 }]
-    };
-
-    expect(reducer(initialState.editor, action).layers).toEqual(expected.layers);
-    expect(reducer(initialState.editor, action).layerInc).toEqual(expected.layerInc);
-  });
+  // it('should handle EDITOR_CREATE_LAYER', () => {
+  //   const action = { type: ActionTypes.EDITOR_CREATE_LAYER };
+  //   const expected = {
+  //     layerInc: 1,
+  //     layers: [ {...defaultLayer, noiseSeed: 0 }]
+  //   };
+  //
+  //   expect(reducer(initialState.editor, action).layers).toEqual(expected.layers);
+  //   expect(reducer(initialState.editor, action).layerInc).toEqual(expected.layerInc);
+  // });
 
   it('should handle EDITOR_UPDATE_LAYER', () => {
     const action = { type: ActionTypes.EDITOR_UPDATE_LAYER, update: { layerId: 1, key: 'tolerance', value: 50 } };
