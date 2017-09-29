@@ -1,20 +1,31 @@
+// @flow
+
 import * as types from '../constants/actionTypes';
 
 import defaultLayer from '../constants/defaults/layer';
+
+import type {
+  GetState,
+  ThunkAction,
+  Layer,
+  Editor_SettingUpdate,
+  Editor_LayerUpdate,
+  Editor_CreateLayer_Action,
+  Editor_DeleteLayer_Action,
+  Editor_UpdateLayer_Action,
+  Editor_UpdateSetting_Action
+} from '../types';
 
 ///////////////////////////////////////
 //
 // PRIVATE METHODS
 
-function _createLayer(fromLayer) {
+function _createLayer(fromLayer: ?Layer): Layer {
   fromLayer = fromLayer || defaultLayer;
 
   return {
-    type: types.EDITOR_CREATE_LAYER,
-    newLayer: {
-      ...fromLayer,
-      noiseSeed: Math.random() * 1000000
-    }
+    ...fromLayer,
+    noiseSeed: Math.random() * 1000000
   };
 }
 
@@ -22,8 +33,8 @@ function _createLayer(fromLayer) {
 //
 // ACTIONS
 
-export function updateSetting(update) {
-  return function(dispatch) {
+export function updateSetting(update: Editor_SettingUpdate): ThunkAction {
+  return function(dispatch: Dispatch<Editor_UpdateSetting_Action>) {
     return dispatch({
       type: types.EDITOR_UPDATE_SETTING,
       update
@@ -31,14 +42,17 @@ export function updateSetting(update) {
   };
 }
 
-export function createLayer() {
-  return function(dispatch) {
-    return dispatch(_createLayer());
+export function createLayer(): ThunkAction {
+  return function(dispatch: Dispatch<Editor_CreateLayer_Action>) {
+    return dispatch({
+      type: types.EDITOR_CREATE_LAYER,
+      newLayer: _createLayer()
+    });
   };
 }
 
-export function updateLayer(update) {
-  return function(dispatch) {
+export function updateLayer(update: Editor_LayerUpdate): ThunkAction {
+  return function(dispatch: Dispatch<Editor_UpdateLayer_Action>) {
     return dispatch({
       type: types.EDITOR_UPDATE_LAYER,
       update
@@ -46,21 +60,27 @@ export function updateLayer(update) {
   };
 }
 
-export function duplicateLayer(layerId) {
-  return function(dispatch, getState) {
-    let duplicate = null;
+export function duplicateLayer(layerId: number): ThunkAction {
+  return function(
+    dispatch: Dispatch<Editor_CreateLayer_Action>,
+    getState: GetState
+  ) {
+    let duplicate: Layer;
     getState().editor.layers.forEach(layer => {
       if (layer.id === layerId) {
         duplicate = layer;
       }
     });
 
-    return dispatch(_createLayer(duplicate));
+    return dispatch({
+      type: types.EDITOR_CREATE_LAYER,
+      newLayer: _createLayer(duplicate)
+    });
   };
 }
 
-export function deleteLayer(layerId) {
-  return function(dispatch) {
+export function deleteLayer(layerId: number): ThunkAction {
+  return function(dispatch: Dispatch<Editor_DeleteLayer_Action>) {
     return dispatch({
       type: types.EDITOR_DELETE_LAYER,
       layerId
@@ -68,8 +88,8 @@ export function deleteLayer(layerId) {
   };
 }
 
-// export function setTheme(themeId) {
-//   return function (dispatch) {
+// export function setTheme(themeId :number) {
+//   return function (dispatch :Dispatch) {
 //     return dispatch({
 //       type: types.EDITOR_SET_THEME,
 //       newLayer: _createLayer(fromLayer)

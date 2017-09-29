@@ -35,103 +35,105 @@ const Layer = ({ layer, onLayerUpdate, onLayerDuplicate, onLayerRemove }) => {
   // RENDER
 
   return (
-    <Form className="columns">
-      <Form.Group widths="equal">
-        <Form.Field>
-          <Form.Input
-            label="Seed"
-            type="range"
-            max="1000000"
-            name="noiseSeed"
-            defaultValue={layer.noiseSeed}
-            onChange={onChange}
-          />
-        </Form.Field>
-      </Form.Group>
+    <div className="layer">
+      <Form className="columns">
+        <Form.Group widths="equal">
+          <Form.Field>
+            <Form.Input
+              label="Seed"
+              type="range"
+              max="1000000"
+              name="noiseSeed"
+              defaultValue={layer.noiseSeed}
+              onChange={onChange}
+            />
+          </Form.Field>
+        </Form.Group>
 
-      <Form.Group widths="equal">
-        <Form.Field>
-          <Form.Input
-            label="Color"
-            type="color"
-            name="color"
-            defaultValue={layer.color}
-            onChange={onChange}
-          />
-        </Form.Field>
+        <Form.Group widths="equal">
+          <Form.Field>
+            <Form.Input
+              label="Color"
+              type="color"
+              name="color"
+              defaultValue={layer.color}
+              onChange={onChange}
+            />
+          </Form.Field>
 
-        <Form.Field>
-          <Form.Input
-            label="Alpha"
-            type="range"
-            max="255"
-            name="alpha"
-            defaultValue={layer.alpha}
-            onChange={onChange}
-          />
-        </Form.Field>
-      </Form.Group>
+          <Form.Field>
+            <Form.Input
+              label="Alpha"
+              type="range"
+              max="255"
+              name="alpha"
+              defaultValue={layer.alpha}
+              onChange={onChange}
+            />
+          </Form.Field>
+        </Form.Group>
 
-      <Form.Group widths="equal">
-        <Form.Field>
-          <Form.Input
-            label="Threshold Min"
-            type="range"
-            max="1"
-            step="0.01"
-            name="thresholdMin"
-            defaultValue={layer.thresholdMin}
-            onChange={onChange}
-          />
-        </Form.Field>
+        <Form.Group widths="equal">
+          <Form.Field>
+            <Form.Input
+              label="Threshold Min"
+              type="range"
+              max="1"
+              step="0.01"
+              name="thresholdMin"
+              defaultValue={layer.thresholdMin}
+              onChange={onChange}
+            />
+          </Form.Field>
 
-        <Form.Field>
-          <Form.Input
-            label="Threshold Max"
-            type="range"
-            max="1"
-            step="0.01"
-            name="thresholdMax"
-            defaultValue={layer.thresholdMax}
-            onChange={onChange}
-          />
-        </Form.Field>
-      </Form.Group>
+          <Form.Field>
+            <Form.Input
+              label="Threshold Max"
+              type="range"
+              max="1"
+              step="0.01"
+              name="thresholdMax"
+              defaultValue={layer.thresholdMax}
+              onChange={onChange}
+            />
+          </Form.Field>
+        </Form.Group>
 
-      <Form.Group widths="equal">
-        <Form.Field>
-          <Form.Input
-            label="Frequency"
-            type="range"
-            max="1000"
-            name="frequency"
-            defaultValue={layer.frequency}
-            onChange={onChange}
-          />
-        </Form.Field>
+        <Form.Group widths="equal">
+          <Form.Field>
+            <Form.Input
+              label="Frequency"
+              type="range"
+              max="1000"
+              name="frequency"
+              defaultValue={layer.frequency}
+              onChange={onChange}
+            />
+          </Form.Field>
 
-        <Form.Field>
-          <Form.Input
-            label="Amplitude"
-            type="range"
-            max="2"
-            step="0.01"
-            name="amplitude"
-            defaultValue={layer.amplitude}
-            onChange={onChange}
-          />
-        </Form.Field>
-      </Form.Group>
+          <Form.Field>
+            <Form.Input
+              label="Amplitude"
+              type="range"
+              max="2"
+              step="0.01"
+              name="amplitude"
+              defaultValue={layer.amplitude}
+              onChange={onChange}
+            />
+          </Form.Field>
+        </Form.Group>
 
-      <Button.Group>
-        <Button positive onClick={onDuplicate}>
-          <Icon name="clone" />Clone
-        </Button>
-        <Button negative onClick={onDelete}>
-          <Icon name="delete" />Delete
-        </Button>
-      </Button.Group>
-    </Form>
+        <Button.Group>
+          <Button positive onClick={onDuplicate}>
+            <Icon name="clone" />Clone
+          </Button>
+          <Button negative onClick={onDelete}>
+            <Icon name="delete" />Delete
+          </Button>
+        </Button.Group>
+      </Form>
+    </div>
   );
 };
 

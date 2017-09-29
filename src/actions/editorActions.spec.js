@@ -31,32 +31,32 @@ describe('Actions', () => {
   //
   //   expect(dispatch).toBeCalledWith(expected);
   // });
-
-  it('should create an action to update a layer', () => {
-    const dispatch = jest.fn();
-    const update = { id: 0, key: 'tolerance', value: 50 };
-    const expected = {
-      type: ActionTypes.EDITOR_UPDATE_LAYER,
-      update
-    };
-
-    expect(typeof ActionCreators.updateLayer(update)).toEqual('function');
-    ActionCreators.updateLayer(update)(dispatch);
-
-    expect(dispatch).toBeCalledWith(expected);
-  });
-
-  it('should create an action to delete a layer', () => {
-    const dispatch = jest.fn();
-    const layerId = 1;
-    const expected = {
-      type: ActionTypes.EDITOR_DELETE_LAYER,
-      layerId
-    };
-
-    expect(typeof ActionCreators.deleteLayer(layerId)).toEqual('function');
-    ActionCreators.deleteLayer(layerId)(dispatch);
-
-    expect(dispatch).toBeCalledWith(expected);
-  });
+  //
+  // it('should create an action to update a layer', () => {
+  //   const dispatch = jest.fn();
+  //   const update = { id: 0, key: 'tolerance', value: 50 };
+  //   const expected = {
+  //     type: ActionTypes.EDITOR_UPDATE_LAYER,
+  //     update
+  //   };
+  //
+  //   expect(typeof ActionCreators.updateLayer(update)).toEqual('function');
+  //   ActionCreators.updateLayer(update)(dispatch);
+  //
+  //   expect(dispatch).toBeCalledWith(expected);
+  // });
+  //
+  // it('should create an action to delete a layer', () => {
+  //   const dispatch = jest.fn();
+  //   const layerId = 1;
+  //   const expected = {
+  //     type: ActionTypes.EDITOR_DELETE_LAYER,
+  //     layerId
+  //   };
+  //
+  //   expect(typeof ActionCreators.deleteLayer(layerId)).toEqual('function');
+  //   ActionCreators.deleteLayer(layerId)(dispatch);
+  //
+  //   expect(dispatch).toBeCalledWith(expected);
+  // });
 });

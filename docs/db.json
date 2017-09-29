@@ -1,30 +1,11 @@
 {
   "data": {
-    "gallert": {
+    "gallery": {
       "hits": [
         {
-          "contentId": "22597025-1240-47fb-b39b-d9858a5844d3",
-          "programId": "646e35c9-54c4-4811-87db-d8658f78e022",
-          "type": "video",
-          "href": "/static/media/coconutricebear.mp4",
-          "title": "oh hello",
-          "description": "hello hooomun"
-        },
-        {
-          "contentId": "b731dfc4-edb0-453e-bdec-66939377e555",
-          "programId": "868272e2-3b4a-4240-b894-46e64bf6944d",
-          "type": "video",
-          "href": "http://content.jwplatform.com/videos/VhRsP0Jf-rpJcDPJu.mp4",
-          "title": "Tuk tuk travel in India",
-          "description": "A video of travel by tuk tuk"
-        },
-        {
-          "contentId": "019e4cc6-7059-4280-b3e3-d98629d6aa2c",
-          "programId": "ce1220fd-ba1a-4cc0-a64c-d863aa08b111",
-          "type": "video",
-          "href": "http://content.jwplatform.com/videos/FW3oSWIw-rpJcDPJu.mp4",
-          "title": "test video do not watch",
-          "description": "A very important test video"
+          "id": "1",
+          "author": "",
+          "image": ""
         }
       ]
     }

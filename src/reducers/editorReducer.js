@@ -1,3 +1,5 @@
+// @flow
+
 import {
   EDITOR_UPDATE_SETTING,
   EDITOR_CREATE_LAYER,
@@ -7,7 +9,12 @@ import {
 
 import initialState from './initialState';
 
-export default function editorReducer(state = initialState.editor, action) {
+import type { EditorState, EditorAction } from '../types/index';
+
+export default function editorReducer(
+  state: EditorState = initialState.editor,
+  action: EditorAction
+): EditorState {
   switch (action.type) {
     case EDITOR_UPDATE_SETTING: {
       return {
