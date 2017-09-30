@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Grid } from 'semantic-ui-react';
+import { Accordion, Grid, Icon } from 'semantic-ui-react';
 
 import Canvas from './Canvas';
 import Settings from './Settings';
@@ -58,12 +58,19 @@ class Editor extends React.Component {
     return (
       <Grid className="editor">
         <Grid.Row>
-          <Grid.Column width="4" floated="right">
-            <Settings
-              settings={editor.settings}
-              onSettingsUpdateSetting={this.onSettingsUpdateSetting}
-              onSettingsCreateLayer={this.onSettingsCreateLayer}
-            />
+          <Grid.Column mobile={16} tablet={6} computer={6} floated="right">
+            <Accordion styled>
+              <Accordion.Title active>
+                <Icon name="toolbox" /> Settings
+              </Accordion.Title>
+              <Accordion.Content active>
+                <Settings
+                  settings={editor.settings}
+                  onSettingsUpdateSetting={this.onSettingsUpdateSetting}
+                  onSettingsCreateLayer={this.onSettingsCreateLayer}
+                />
+              </Accordion.Content>
+            </Accordion>
 
             <LayerList
               layers={editor.layers}

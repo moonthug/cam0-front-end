@@ -41,77 +41,70 @@ const Settings = ({
 
   return (
     <div className="settings">
-      <Accordion styled>
-        <Accordion.Title active>
-          <Icon name="theme" /> Settings
-        </Accordion.Title>
-        <Accordion.Content active>
-          <Form>
-            <Form.Group widths="equal">
-              <Dropdown
-                placeholder="Theme <none>"
-                name="theme"
-                defaultValue={settings.theme}
-                search
-                selection
-                options={toDropdownOptions(themes)}
-                onChange={onChange}
-              />
-            </Form.Group>
+      <Form>
+        <Form.Group widths="equal">
+          <Dropdown
+            placeholder="Theme <none>"
+            name="theme"
+            defaultValue={settings.theme}
+            search
+            selection
+            options={toDropdownOptions(themes)}
+            onChange={onChange}
+          />
+        </Form.Group>
 
-            <Form.Group widths="equal">
-              <Form.Field>
-                <Form.Input
-                  label="Background Color"
-                  type="color"
-                  name="backgroundColor"
-                  defaultValue={settings.backgroundColor}
-                  onChange={onChange}
-                />
-              </Form.Field>
-            </Form.Group>
+        <Form.Group widths="equal">
+          <Form.Field>
+            <Form.Input
+              label="Background Color"
+              type="color"
+              name="backgroundColor"
+              defaultValue={settings.backgroundColor}
+              onChange={onChange}
+            />
+          </Form.Field>
+        </Form.Group>
 
-            <Form.Group widths="equal">
-              <Dropdown
-                placeholder="Blend Mode"
-                name="blendMode"
-                defaultValue={settings.blendMode}
-                search
-                selection
-                options={blendModes}
-                onChange={onChange}
-              />
-            </Form.Group>
+        <Form.Group widths="equal">
+          <Dropdown
+            placeholder="Blend Mode"
+            name="blendMode"
+            defaultValue={settings.blendMode}
+            search
+            selection
+            options={blendModes}
+            onChange={onChange}
+          />
+        </Form.Group>
 
-            <Form.Group widths="equal">
-              <Form.Field>
-                <Checkbox
-                  label="Enable Blur"
-                  name="blur"
-                  defaultChecked={settings.blur}
-                  onChange={onChange}
-                  toggle
-                />
-              </Form.Field>
+        <Form.Group widths="equal">
+          <Form.Field>
+            <Checkbox
+              label="Enable Blur"
+              name="blur"
+              defaultChecked={settings.blur}
+              onChange={onChange}
+              toggle
+            />
+          </Form.Field>
 
-              <Form.Field>
-                <Form.Input
-                  label="Blur Amount"
-                  type="range"
-                  name="blurAmount"
-                  defaultValue={settings.blurAmount}
-                  onChange={onChange}
-                />
-              </Form.Field>
-            </Form.Group>
-          </Form>
-          <Button.Group>
-            <Button onClick={onSettingsCreateLayer} positive>
-              Add Layer
-            </Button>
-          </Button.Group>
-        </Accordion.Content>
-      </Accordion>
+          <Form.Field>
+            <Form.Input
+              label="Blur Amount"
+              type="range"
+              name="blurAmount"
+              defaultValue={settings.blurAmount}
+              onChange={onChange}
+            />
+          </Form.Field>
+        </Form.Group>
+      </Form>
+      <Button.Group>
+        <Button onClick={onSettingsCreateLayer} positive>
+          Add Layer
+        </Button>
+      </Button.Group>
     </div>
   );
 };
