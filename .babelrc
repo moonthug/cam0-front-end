@@ -1,15 +1,22 @@
 {
   "presets": [
     "react",
+    "stage-0",
     "stage-1",
     "flow"
+  ],
+  "plugins": [
+    "transform-class-properties"
   ],
   "env": {
     "development": {
       "presets": [
         "env",
         "react-hmre"
-      ]
+      ],
+      "plugins": [
+        "transform-class-properties"
+      ],
     },
     "production": {
       "presets": [
@@ -28,12 +35,15 @@
       ],
       "plugins": [
         "transform-react-constant-elements",
-        "transform-react-remove-prop-types"
+        "transform-react-remove-prop-types",
       ]
     },
     "test": {
       "presets": [
         "env"
+      ],
+      "plugins": [
+        "transform-class-properties"
       ]
     }
   }

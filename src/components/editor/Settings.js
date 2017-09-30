@@ -1,14 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Accordion,
-  Button,
-  Checkbox,
-  Dropdown,
-  Form,
-  Icon
-} from 'semantic-ui-react';
+import { Button, Checkbox, Dropdown, Form } from 'semantic-ui-react';
 
 import { toDropdownOptions } from '../../utils/arrayHelper';
 

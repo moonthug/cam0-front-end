@@ -1,14 +1,46 @@
+// @flow
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Noise } from 'noisejs';
 
-class Canvas extends React.Component {
+// eslint-disable-next-line import/no-unresolved
+import type { Layer, EditorSettings, Editor_LayerUpdate } from 'cam0';
+
+type Props = {
+  layers: Array<Layer>,
+  settings: EditorSettings,
+  onUpdateLayer: (update: Editor_LayerUpdate) => void
+};
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// INTERFACE
+//
+
+interface ICanvas {
+  layerCache: Array<mixed>;
+  node: HTMLElement;
+  canvas: HTMLCanvasElement;
+  ctx: any;
+  canvas2: HTMLCanvasElement;
+  ctx2: any;
+  noise: mixed;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// IMPLEMENTATION
+//
+
+class Canvas extends React.Component<Props> implements ICanvas {
   /////////////////////////////////////
   //
   // CONSTRUCTOR
 
-  constructor(props, context) {
+  constructor(props: Props, context: any) {
     super(props, context);
+    this.layerCache = [];
   }
 
   /////////////////////////////////////
@@ -42,17 +74,31 @@ class Canvas extends React.Component {
     this.draw();
   }
 
-  componentDidUpdate() {
-    this.draw();
+  shouldComponentUpdate(nextProps: Props) {
+    let drawChanges = !!nextProps.layers.find((layer: Layer) => {
+      return layer.draw === true;
+    });
+
+    if (drawChanges) {
+      this.draw(nextProps);
+    }
+    return false;
   }
 
   /////////////////////////////////////
   //
+  // PROPERTIES
+  layerCache: Array<any>;
+  canvas: HTMLCanvasElement;
+  ctx: any;
+  canvas2: HTMLCanvasElement;
+  ctx2: any;
+  /////////////////////////////////////
+  //
   // CANVAS
 
-  draw() {
-    // @TODO Optimise this
-    //  - Cache previous layer pixels?
+  draw(props?: Props) {
+    props = props || this.props;
 
     const threshold = (variable, min, max, val) => {
       return variable < min || variable > max ? 0 : val ? val : variable;
@@ -80,52 +126,64 @@ class Canvas extends React.Component {
     // BG
     this.ctx.beginPath();
     this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.fillStyle = this.props.settings.backgroundColor;
+    this.ctx.fillStyle = props.settings.backgroundColor;
     this.ctx.fill();
     this.ctx.closePath();
 
     // LAYERS
-    this.props.layers.forEach(layer => {
-      this.noise.seed(layer.noiseSeed);
+    props.layers.forEach((layer: Layer, i: number) => {
+      let image;
 
-      let image = this.ctx2.getImageData(
-        0,
-        0,
-        this.canvas.width,
-        this.canvas.height
-      );
-      let data = image.data;
+      // Load layer from cache
+      if (layer.draw === false) {
+        image = this.layerCache[i];
+      } else {
+        this.noise.seed(layer.noiseSeed);
 
-      let color = parseColor(layer.color);
+        image = this.ctx2.getImageData(
+          0,
+          0,
+          this.canvas.width,
+          this.canvas.height
+        );
+        let data = image.data;
 
-      for (let x = 0; x < this.canvas.width; x++) {
-        for (let y = 0; y < this.canvas.height; y++) {
-          let value = Math.abs(
-            this.noise.perlin2(x / layer.frequency, y / layer.frequency) *
-              layer.amplitude
-          );
+        let color = parseColor(layer.color);
 
-          value = threshold(value, layer.thresholdMin, layer.thresholdMax);
+        for (let x = 0; x < this.canvas.width; x++) {
+          for (let y = 0; y < this.canvas.height; y++) {
+            let value = Math.abs(
+              this.noise.perlin2(x / layer.frequency, y / layer.frequency) *
+                layer.amplitude
+            );
 
-          let cell = (x + y * this.canvas.width) * 4;
+            value = threshold(value, layer.thresholdMin, layer.thresholdMax);
 
-          data[cell] = color[0]; // * value;
-          data[cell + 1] = color[1]; // * value;
-          data[cell + 2] = color[2]; // * value;
-          data[cell + 3] = value === 0 ? 0 : layer.alpha;
+            let cell = (x + y * this.canvas.width) * 4;
+
+            data[cell] = color[0]; // * value;
+            data[cell + 1] = color[1]; // * value;
+            data[cell + 2] = color[2]; // * value;
+            data[cell + 3] = value === 0 ? 0 : layer.alpha;
+          }
         }
-      }
-      this.ctx2.putImageData(image, 0, 0);
 
-      this.ctx.globalCompositeOperation = this.props.settings.blendMode;
+        this.layerCache[i] = image;
+      }
+
+      this.ctx2.putImageData(image, 0, 0);
       this.ctx.drawImage(this.canvas2, 0, 0);
     });
 
-    if (this.props.settings.blur === true) {
-      this.ctx.filter = 'blur(' + this.props.settings.blurAmmount + 'px)';
-    } else {
-      this.ctx.filter = 'none';
-    }
+    this.ctx.globalCompositeOperation = props.settings.blendMode;
+
+    // if (props.settings.blur === true) {
+    //   this.ctx.filter = 'blur(' + props.settings.blurAmmount + 'px)';
+    // } else {
+    //   this.ctx.filter = 'none';
+    // }
+
+    this.props.onResetDrawForLayers();
   }
 
   /////////////////////////////////////
@@ -133,6 +191,7 @@ class Canvas extends React.Component {
   // RENDER
 
   render() {
+    console.log('render canvas');
     return (
       <div
         className="canvas"
@@ -148,11 +207,10 @@ class Canvas extends React.Component {
 //
 // PROP VALIDATION
 
-const { array, object } = PropTypes;
-
 Canvas.propTypes = {
-  layers: array.isRequired,
-  settings: object.isRequired
+  layers: PropTypes.array.isRequired,
+  settings: PropTypes.object.isRequired,
+  onResetDrawForLayers: PropTypes.func.isRequired
 };
 
 /////////////////////////////////////

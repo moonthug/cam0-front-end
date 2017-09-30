@@ -15,6 +15,7 @@ export const EditorPage = props => {
   return (
     <div>
       <Editor
+        resetDrawForLayers={props.actions.resetDrawForLayers}
         updateSetting={props.actions.updateSetting}
         createLayer={props.actions.createLayer}
         updateLayer={props.actions.updateLayer}

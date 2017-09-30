@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, Form, Icon } from 'semantic-ui-react';
+import ColorPicker from './common/ColorPicker';
 
 const Layer = ({ layer, onLayerUpdate, onLayerDuplicate, onLayerRemove }) => {
   /////////////////////////////////////
@@ -16,7 +17,8 @@ const Layer = ({ layer, onLayerUpdate, onLayerDuplicate, onLayerRemove }) => {
     onLayerUpdate({
       layerId: layer.id,
       key: data.name,
-      value: data.value
+      value: data.value,
+      draw: true
     });
   };
 
@@ -52,13 +54,14 @@ const Layer = ({ layer, onLayerUpdate, onLayerDuplicate, onLayerRemove }) => {
 
         <Form.Group widths="equal">
           <Form.Field>
-            <Form.Input
-              label="Color"
-              type="color"
-              name="color"
-              defaultValue={layer.color}
-              onChange={onChange}
-            />
+            {/*<Form.Input*/}
+            {/*label="Color"*/}
+            {/*type="color"*/}
+            {/*name="color"*/}
+            {/*defaultValue={layer.color}*/}
+            {/*onChange={onChange}*/}
+            {/*/>*/}
+            <ColorPicker color={layer.color} onChangeComplete={onChange} />
           </Form.Field>
 
           <Form.Field>

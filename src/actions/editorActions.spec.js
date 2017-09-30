@@ -11,7 +11,7 @@ describe('Actions', () => {
     const update = { key: 'backgroundColor', value: '#FF0000' };
     const expected = {
       type: ActionTypes.EDITOR_UPDATE_SETTING,
-      update
+      ...update
     };
 
     expect(typeof ActionCreators.updateSetting(update)).toEqual('function');

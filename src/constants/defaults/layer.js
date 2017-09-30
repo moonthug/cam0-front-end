@@ -3,6 +3,7 @@
 
 export default {
   id: 1,
+  draw: true,
   noiseSeed: 0,
   color: '#FF0000',
   alpha: 255,

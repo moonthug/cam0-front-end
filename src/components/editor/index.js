@@ -17,35 +17,40 @@ class Editor extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.onSettingsUpdateSetting = this.onSettingsUpdateSetting.bind(this);
-    this.onSettingsCreateLayer = this.onSettingsCreateLayer.bind(this);
-    this.onLayerListUpdateLayer = this.onLayerListUpdateLayer.bind(this);
-    this.onLayerListDuplicateLayer = this.onLayerListDuplicateLayer.bind(this);
-    this.onLayerListDeleteLayer = this.onLayerListDeleteLayer.bind(this);
+    this.onUpdateSetting = this.onUpdateSetting.bind(this);
+    this.onCreateLayer = this.onCreateLayer.bind(this);
+    this.onUpdateLayer = this.onUpdateLayer.bind(this);
+    this.onDuplicateLayer = this.onDuplicateLayer.bind(this);
+    this.onDeleteLayer = this.onDeleteLayer.bind(this);
+    this.onResetDrawForLayers = this.onResetDrawForLayers.bind(this);
   }
 
   /////////////////////////////////////
   //
   // PUBLIC FUNCTIONS
 
-  onSettingsCreateLayer() {
+  onCreateLayer() {
     this.props.createLayer();
   }
 
-  onSettingsUpdateSetting(update) {
+  onUpdateSetting(update) {
     this.props.updateSetting(update);
   }
 
-  onLayerListUpdateLayer(update) {
+  onUpdateLayer(update) {
     this.props.updateLayer(update);
   }
 
-  onLayerListDuplicateLayer(layerId) {
+  onDuplicateLayer(layerId) {
     this.props.duplicateLayer(layerId);
   }
 
-  onLayerListDeleteLayer(layerId) {
+  onDeleteLayer(layerId) {
     this.props.deleteLayer(layerId);
+  }
+
+  onResetDrawForLayers() {
+    this.props.resetDrawForLayers();
   }
 
   /////////////////////////////////////
@@ -61,26 +66,30 @@ class Editor extends React.Component {
           <Grid.Column mobile={16} tablet={6} computer={6} floated="right">
             <Accordion styled>
               <Accordion.Title active>
-                <Icon name="toolbox" /> Settings
+                <Icon name="settings" /> Settings
               </Accordion.Title>
               <Accordion.Content active>
                 <Settings
                   settings={editor.settings}
-                  onSettingsUpdateSetting={this.onSettingsUpdateSetting}
-                  onSettingsCreateLayer={this.onSettingsCreateLayer}
+                  onSettingsUpdateSetting={this.onUpdateSetting}
+                  onSettingsCreateLayer={this.onCreateLayer}
                 />
               </Accordion.Content>
             </Accordion>
 
             <LayerList
               layers={editor.layers}
-              onLayerListUpdateLayer={this.onLayerListUpdateLayer}
-              onLayerListDuplicateLayer={this.onLayerListDuplicateLayer}
-              onLayerListDeleteLayer={this.onLayerListDeleteLayer}
+              onLayerListUpdateLayer={this.onUpdateLayer}
+              onLayerListDuplicateLayer={this.onDuplicateLayer}
+              onLayerListDeleteLayer={this.onDeleteLayer}
             />
           </Grid.Column>
 
-          <Canvas settings={editor.settings} layers={editor.layers} />
+          <Canvas
+            settings={editor.settings}
+            layers={editor.layers}
+            onResetDrawForLayers={this.onResetDrawForLayers}
+          />
         </Grid.Row>
       </Grid>
     );
@@ -97,6 +106,7 @@ Editor.propTypes = {
   editor: shape({
     layers: array.isRequired
   }).isRequired,
+  resetDrawForLayers: func.isRequired,
   updateSetting: func.isRequired,
   createLayer: func.isRequired,
   updateLayer: func.isRequired,

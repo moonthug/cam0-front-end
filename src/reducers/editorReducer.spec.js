@@ -17,7 +17,8 @@ describe('Reducers::Editor', () => {
   it('should handle EDITOR_UPDATE_SETTING', () => {
     const action = {
       type: ActionTypes.EDITOR_UPDATE_SETTING,
-      update: { key: 'backgroundColor', value: '#FFCC00' }
+      key: 'backgroundColor',
+      value: '#FFCC00'
     };
     const state = {
       settings: defaultEditorSettings
@@ -43,7 +44,9 @@ describe('Reducers::Editor', () => {
   it('should handle EDITOR_UPDATE_LAYER', () => {
     const action = {
       type: ActionTypes.EDITOR_UPDATE_LAYER,
-      update: { layerId: 1, key: 'tolerance', value: 50 }
+      layerId: 1,
+      key: 'tolerance',
+      value: 50
     };
     const state = {
       layerInc: 2,

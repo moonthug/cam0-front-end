@@ -1,6 +1,7 @@
 // @flow
 
 import {
+  EDITOR_RESET_DRAW_FOR_LAYERS,
   EDITOR_UPDATE_SETTING,
   EDITOR_CREATE_LAYER,
   EDITOR_DELETE_LAYER,
@@ -9,24 +10,39 @@ import {
 
 import initialState from './initialState';
 
-import type { EditorState, EditorAction } from '../types/index';
+// eslint-disable-next-line import/no-unresolved
+import type { EditorState, EditorAction } from 'cam0';
 
 export default function editorReducer(
   state: EditorState = initialState.editor,
   action: EditorAction
 ): EditorState {
   switch (action.type) {
+    case EDITOR_RESET_DRAW_FOR_LAYERS: {
+      return {
+        ...state,
+        layers: state.layers.map((layer: Layer) => {
+          return { ...layer, draw: false };
+        })
+      };
+    }
+
     case EDITOR_UPDATE_SETTING: {
+      if (typeof action.key !== 'string') return state;
+      if (typeof action.value === 'undefined') return state;
+
       return {
         ...state,
         settings: {
           ...state.settings,
-          [action.update.key]: action.update.value
+          draw: true,
+          [action.key]: action.value
         }
       };
     }
 
     case EDITOR_CREATE_LAYER: {
+      if (typeof action.newLayer === 'undefined') return state;
       let layers = state.layers.map((layer, i) => {
         let newLayer = Object.assign({}, layer);
         newLayer.id = i;
@@ -41,22 +57,30 @@ export default function editorReducer(
     }
 
     case EDITOR_UPDATE_LAYER: {
+      if (typeof action.layerId !== 'number') return state;
+      if (typeof action.key !== 'string') return state;
+      if (typeof action.value === 'undefined') return state;
+
+      let newLayers = state.layers.map((layer: Layer) => {
+        let newLayer = { ...layer };
+
+        if (layer.id === action.layerId) {
+          newLayer[action.key] = action.value;
+          newLayer.draw = action.draw;
+        }
+        return newLayer;
+      });
+
       return {
         ...state,
-        layers: state.layers.map(layer => {
-          let newLayer = Object.assign({}, layer);
-          if (layer.id === action.update.layerId) {
-            newLayer[action.update.key] = action.update.value;
-          }
-          return newLayer;
-        })
+        layers: newLayers
       };
     }
 
     case EDITOR_DELETE_LAYER: {
       return {
         ...state,
-        layers: state.layers.filter(layer => {
+        layers: state.layers.filter((layer: Layer) => {
           return layer.id !== action.layerId;
         })
       };

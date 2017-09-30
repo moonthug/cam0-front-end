@@ -4,17 +4,20 @@ import * as types from '../constants/actionTypes';
 
 import defaultLayer from '../constants/defaults/layer';
 
+// eslint-disable-next-line import/named
 import type {
   GetState,
   ThunkAction,
   Layer,
   Editor_SettingUpdate,
   Editor_LayerUpdate,
+  Editor_ResetDrawForLayers_Action,
   Editor_CreateLayer_Action,
   Editor_DeleteLayer_Action,
   Editor_UpdateLayer_Action,
   Editor_UpdateSetting_Action
-} from '../types';
+  // eslint-disable-next-line import/no-unresolved
+} from 'cam0';
 
 ///////////////////////////////////////
 //
@@ -25,7 +28,8 @@ function _createLayer(fromLayer: ?Layer): Layer {
 
   return {
     ...fromLayer,
-    noiseSeed: Math.random() * 1000000
+    draw: true, // always override draw
+    noiseSeed: Math.floor(Math.random() * 1000000)
   };
 }
 
@@ -33,11 +37,19 @@ function _createLayer(fromLayer: ?Layer): Layer {
 //
 // ACTIONS
 
+export function resetDrawForLayers(): ThunkAction {
+  return function(dispatch: Dispatch<Editor_ResetDrawForLayers_Action>) {
+    return dispatch({
+      type: types.EDITOR_RESET_DRAW_FOR_LAYERS
+    });
+  };
+}
+
 export function updateSetting(update: Editor_SettingUpdate): ThunkAction {
   return function(dispatch: Dispatch<Editor_UpdateSetting_Action>) {
     return dispatch({
       type: types.EDITOR_UPDATE_SETTING,
-      update
+      ...update
     });
   };
 }
@@ -55,7 +67,7 @@ export function updateLayer(update: Editor_LayerUpdate): ThunkAction {
   return function(dispatch: Dispatch<Editor_UpdateLayer_Action>) {
     return dispatch({
       type: types.EDITOR_UPDATE_LAYER,
-      update
+      ...update
     });
   };
 }
