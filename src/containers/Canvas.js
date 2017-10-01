@@ -1,44 +1,23 @@
-// @flow
-
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { Noise } from 'noisejs';
 
-// eslint-disable-next-line import/no-unresolved
-import type { Layer, EditorSettings, Editor_LayerUpdate } from 'cam0';
-
-type Props = {
-  layers: Array<Layer>,
-  settings: EditorSettings,
-  onUpdateLayer: (update: Editor_LayerUpdate) => void
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// INTERFACE
-//
-
-interface ICanvas {
-  layerCache: Array<mixed>;
-  node: HTMLElement;
-  canvas: HTMLCanvasElement;
-  ctx: any;
-  canvas2: HTMLCanvasElement;
-  ctx2: any;
-  noise: mixed;
-}
+import * as actions from '../actions/patternActions';
 
 ///////////////////////////////////////////////////////////////////////////////
 //
 // IMPLEMENTATION
 //
 
-class Canvas extends React.Component<Props> implements ICanvas {
+class Canvas extends React.Component {
   /////////////////////////////////////
   //
   // CONSTRUCTOR
 
-  constructor(props: Props, context: any) {
+  constructor(props, context) {
     super(props, context);
     this.layerCache = [];
   }
@@ -70,12 +49,25 @@ class Canvas extends React.Component<Props> implements ICanvas {
   }
 
   componentDidMount() {
+    let layerCount = 1 + Math.floor(Math.random() * 3);
+    this.props.actions.createLayers(layerCount);
     this.node.appendChild(this.canvas);
-    this.draw();
   }
 
-  shouldComponentUpdate(nextProps: Props) {
-    let drawChanges = !!nextProps.layers.find((layer: Layer) => {
+  shouldComponentUpdate(nextProps) {
+    if (
+      !nextProps.pattern.layers ||
+      !Array.isArray(nextProps.pattern.layers) ||
+      nextProps.pattern.layers.length === 0
+    )
+      return false;
+
+    // Check layers have updated
+    if (this.layerCache.length !== nextProps.pattern.layers.length) {
+    }
+
+    // Search for changes
+    let drawChanges = !!nextProps.pattern.layers.find((layer: Layer) => {
       return layer.draw === true;
     });
 
@@ -88,16 +80,23 @@ class Canvas extends React.Component<Props> implements ICanvas {
   /////////////////////////////////////
   //
   // PROPERTIES
-  layerCache: Array<any>;
-  canvas: HTMLCanvasElement;
-  ctx: any;
-  canvas2: HTMLCanvasElement;
-  ctx2: any;
+
+  // actions: mixed;
+  // layerCache: Array<any>;
+  // node: HTMLElement;
+  // canvas: HTMLCanvasElement;
+  // ctx: any;
+  // canvas2: HTMLCanvasElement;
+  // ctx2: any;
+  // noise: any;
+
   /////////////////////////////////////
   //
   // CANVAS
 
-  draw(props?: Props) {
+  draw(props = null) {
+    let redraw = !props;
+
     props = props || this.props;
 
     const threshold = (variable, min, max, val) => {
@@ -126,16 +125,16 @@ class Canvas extends React.Component<Props> implements ICanvas {
     // BG
     this.ctx.beginPath();
     this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.fillStyle = props.settings.backgroundColor;
+    this.ctx.fillStyle = props.pattern.settings.backgroundColor;
     this.ctx.fill();
     this.ctx.closePath();
 
     // LAYERS
-    props.layers.forEach((layer: Layer, i: number) => {
+    props.pattern.layers.forEach((layer: Layer, i: number) => {
       let image;
 
       // Load layer from cache
-      if (layer.draw === false) {
+      if (redraw === false && layer.draw === false) {
         image = this.layerCache[i];
       } else {
         this.noise.seed(layer.noiseSeed);
@@ -172,18 +171,18 @@ class Canvas extends React.Component<Props> implements ICanvas {
       }
 
       this.ctx2.putImageData(image, 0, 0);
-      this.ctx.drawImage(this.canvas2, 0, 0);
+      this.ctx.drawImage(this.canvas2, 0.333, 0.333);
     });
 
-    this.ctx.globalCompositeOperation = props.settings.blendMode;
+    this.ctx.globalCompositeOperation = props.pattern.settings.blendMode;
 
-    // if (props.settings.blur === true) {
-    //   this.ctx.filter = 'blur(' + props.settings.blurAmmount + 'px)';
+    // if (props.pattern.settings.blur === true) {
+    //   this.ctx.filter = 'blur(' + props.pattern.settings.blurAmmount + 'px)';
     // } else {
     //   this.ctx.filter = 'none';
     // }
 
-    this.props.onResetDrawForLayers();
+    this.props.actions.resetDrawForLayers();
   }
 
   /////////////////////////////////////
@@ -191,7 +190,6 @@ class Canvas extends React.Component<Props> implements ICanvas {
   // RENDER
 
   render() {
-    console.log('render canvas');
     return (
       <div
         className="canvas"
@@ -208,13 +206,28 @@ class Canvas extends React.Component<Props> implements ICanvas {
 // PROP VALIDATION
 
 Canvas.propTypes = {
-  layers: PropTypes.array.isRequired,
-  settings: PropTypes.object.isRequired,
-  onResetDrawForLayers: PropTypes.func.isRequired
+  actions: PropTypes.object.isRequired,
+  pattern: PropTypes.object.isRequired
 };
+
+/////////////////////////////////////
+//
+// REDUX
+
+function mapStateToProps(state) {
+  return {
+    pattern: state.pattern
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
 
 /////////////////////////////////////
 //
 // EXPORT
 
-export default Canvas;
+export default connect(mapStateToProps, mapDispatchToProps)(Canvas);

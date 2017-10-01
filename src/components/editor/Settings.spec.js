@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import Settings from './Settings';
 
-import defaultEditorSettings from '../../constants/defaults/editorSettings';
+import defaultEditorSettings from '../../constants/defaults/patternSettings';
 
 describe('<Settings />', () => {
   const settings = defaultEditorSettings;

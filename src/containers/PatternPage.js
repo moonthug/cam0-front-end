@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as actions from '../actions/editorActions';
+import * as actions from '../actions/patternActions';
 
 import Editor from '../components/editor';
 
-export const EditorPage = props => {
+export const PatternPage = props => {
   /////////////////////////////////////
   //
   // RENDER
@@ -15,13 +15,13 @@ export const EditorPage = props => {
   return (
     <div>
       <Editor
-        resetDrawForLayers={props.actions.resetDrawForLayers}
         updateSetting={props.actions.updateSetting}
+        reSeedLayers={props.actions.reSeedLayers}
         createLayer={props.actions.createLayer}
         updateLayer={props.actions.updateLayer}
         duplicateLayer={props.actions.duplicateLayer}
         deleteLayer={props.actions.deleteLayer}
-        editor={props.editor}
+        pattern={props.pattern}
       />
     </div>
   );
@@ -31,9 +31,9 @@ export const EditorPage = props => {
 //
 // PROP VALIDATION
 
-EditorPage.propTypes = {
+PatternPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  editor: PropTypes.object.isRequired
+  pattern: PropTypes.object.isRequired
 };
 
 /////////////////////////////////////
@@ -42,7 +42,7 @@ EditorPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    editor: state.editor
+    pattern: state.pattern
   };
 }
 
@@ -56,4 +56,4 @@ function mapDispatchToProps(dispatch) {
 //
 // EXPORT
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditorPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PatternPage);

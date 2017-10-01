@@ -3,27 +3,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as actions from '../actions/galleryActions';
+import * as actions from '../actions/patternsActions';
 
-export const GalleryPage = () => {
+import Gallery from '../components/gallery';
+
+export const PatternsPage = () => {
   /////////////////////////////////////
   //
   // RENDER
 
-  return (
-    <div>
-      <h1>Gallery</h1>
-    </div>
-  );
+  return <div />;
 };
 
 /////////////////////////////////////
 //
 // PROP VALIDATION
 
-GalleryPage.propTypes = {
+PatternsPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  gallery: PropTypes.object.isRequired
+  patterns: PropTypes.array.isRequired
 };
 
 /////////////////////////////////////
@@ -32,7 +30,7 @@ GalleryPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    gallery: state.gallery
+    patterns: state.patterns
   };
 }
 
@@ -46,4 +44,4 @@ function mapDispatchToProps(dispatch) {
 //
 // EXPORT
 
-export default connect(mapStateToProps, mapDispatchToProps)(GalleryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PatternsPage);

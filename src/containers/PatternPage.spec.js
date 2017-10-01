@@ -3,10 +3,10 @@ import { shallow } from 'enzyme';
 
 import initialState from '../reducers/initialState';
 
-import { EditorPage } from './EditorPage';
+import { PatternPage } from './PatternPage';
 import Editor from '../components/editor';
 
-describe('<EditorPage />', () => {
+describe('<PatternPage />', () => {
   const actions = {
     updateSetting: () => {},
     createLayer: () => {},
@@ -15,7 +15,7 @@ describe('<EditorPage />', () => {
   };
 
   const wrapper = shallow(
-    <EditorPage actions={actions} editor={initialState.editor} />
+    <PatternPage actions={actions} editor={initialState.pattern} />
   );
 
   it('should contain <Editor />', () => {

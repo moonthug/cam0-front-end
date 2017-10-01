@@ -10,8 +10,9 @@ import themes from '../../constants/themes';
 
 const Settings = ({
   settings,
-  onSettingsUpdateSetting,
-  onSettingsCreateLayer
+  onReSeedLayers,
+  onUpdateSetting,
+  onCreateLayer
 }) => {
   /////////////////////////////////////
   //
@@ -22,7 +23,7 @@ const Settings = ({
 
     if (data.type === 'range') data.value = parseFloat(data.value);
 
-    onSettingsUpdateSetting({
+    onUpdateSetting({
       key: data.name,
       value: data.value
     });
@@ -94,8 +95,11 @@ const Settings = ({
         </Form.Group>
       </Form>
       <Button.Group>
-        <Button onClick={onSettingsCreateLayer} positive>
+        <Button onClick={onCreateLayer} positive>
           Add Layer
+        </Button>
+        <Button onClick={onReSeedLayers} negative>
+          Re-Seed Layers
         </Button>
       </Button.Group>
     </div>
@@ -110,8 +114,9 @@ const { func, object } = PropTypes;
 
 Settings.propTypes = {
   settings: object.isRequired,
-  onSettingsCreateLayer: func.isRequired,
-  onSettingsUpdateSetting: func.isRequired
+  onCreateLayer: func.isRequired,
+  onReSeedLayers: func.isRequired,
+  onUpdateSetting: func.isRequired
 };
 
 /////////////////////////////////////

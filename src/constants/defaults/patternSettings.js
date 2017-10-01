@@ -1,5 +1,5 @@
 //
-// state.editor.settings
+// state.pattern.settings
 
 export default {
   backgroundColor: '#FFFFFF',

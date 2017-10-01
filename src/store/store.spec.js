@@ -15,7 +15,7 @@ describe('Store', () => {
   it('should store data', () => {
     const store = createStore(rootReducer, initialState);
 
-    const actions = [{ type: ActionTypes.EDITOR_CREATE_LAYER }];
+    const actions = [{ type: ActionTypes.PATTERN_CREATE_LAYER }];
     actions.forEach(action => store.dispatch(action));
 
     const actual = store.getState();
@@ -23,7 +23,7 @@ describe('Store', () => {
       layers: [{ ...defaultLayer, id: 0 }]
     };
 
-    expect(actual.editor).toEqual(expected);
+    expect(actual.pattern).toEqual(expected);
   });
 });
 

@@ -1,16 +1,16 @@
 import * as ActionTypes from '../constants/actionTypes';
-import * as ActionCreators from './editorActions';
+import * as ActionCreators from './patternActions';
 
 import MockDate from 'mockdate';
 
-describe('Actions', () => {
+describe('Pattern Actions', () => {
   afterAll(() => MockDate.reset());
 
   it('should create an action to update a setting', () => {
     const dispatch = jest.fn();
     const update = { key: 'backgroundColor', value: '#FF0000' };
     const expected = {
-      type: ActionTypes.EDITOR_UPDATE_SETTING,
+      type: ActionTypes.PATTERN_UPDATE_SETTING,
       ...update
     };
 
@@ -23,7 +23,7 @@ describe('Actions', () => {
   // it('should create an action to create a layer', () => {
   //   const dispatch = jest.fn();
   //   const expected = {
-  //     type: ActionTypes.EDITOR_CREATE_LAYER,
+  //     type: ActionTypes.PATTERN_CREATE_LAYER,
   //   };
   //
   //   expect(typeof (ActionCreators.createLayer())).toEqual('function');
@@ -36,7 +36,7 @@ describe('Actions', () => {
   //   const dispatch = jest.fn();
   //   const update = { id: 0, key: 'tolerance', value: 50 };
   //   const expected = {
-  //     type: ActionTypes.EDITOR_UPDATE_LAYER,
+  //     type: ActionTypes.PATTERN_UPDATE_LAYER,
   //     update
   //   };
   //
@@ -50,7 +50,7 @@ describe('Actions', () => {
   //   const dispatch = jest.fn();
   //   const layerId = 1;
   //   const expected = {
-  //     type: ActionTypes.EDITOR_DELETE_LAYER,
+  //     type: ActionTypes.PATTERN_DELETE_LAYER,
   //     layerId
   //   };
   //

@@ -1,13 +1,10 @@
 // @flow
-import editorSettings from '../constants/defaults/editorSettings';
+import patternSettings from '../constants/defaults/patternSettings';
 
 export default {
-  editor: {
+  pattern: {
     layers: [],
-    settings: editorSettings
+    settings: patternSettings
   },
-  gallery: {
-    currentPage: 1,
-    camos: []
-  }
+  patterns: []
 };

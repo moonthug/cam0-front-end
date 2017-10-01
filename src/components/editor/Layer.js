@@ -107,7 +107,7 @@ const Layer = ({ layer, onLayerUpdate, onLayerDuplicate, onLayerRemove }) => {
             <Form.Input
               label="Frequency"
               type="range"
-              max="1000"
+              max="500"
               name="frequency"
               defaultValue={layer.frequency}
               onChange={onChange}

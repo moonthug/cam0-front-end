@@ -14,18 +14,18 @@ declare module 'cam0' {
   // STATE
 
   declare type State = {
-    editor: EditorState
+    editor: PatternState
   };
 
   //
   // Editor
 
-  declare type EditorState = {
+  declare type PatternState = {
     layers: Array<Layer>,
-    settings: EditorSettings
+    settings: PatternSettings
   };
 
-  declare type EditorSettings = {
+  declare type PatternSettings = {
     backgroundColor: string,
     blendMode: string,
     blur: boolean,
@@ -33,9 +33,9 @@ declare module 'cam0' {
   };
 
   //
-  // Gallery
+  // Patterns
 
-  declare type GalleryState = {
+  declare type PatternsState = {
     currentPage: number
   };
 
@@ -72,47 +72,53 @@ declare module 'cam0' {
   //
   // ACTIONS
 
-  //
-  // EDITOR
-
-  declare type Editor_ResetDrawForLayers_Action = {
+  declare type BasicAction = {
     type: string
   };
 
-  declare type Editor_UpdateSetting_Action = {
+  //
+  // EDITOR
+
+  declare type Pattern_UpdateSetting_Action = {
     type: string,
-    ...Editor_SettingUpdate
+    ...Pattern_SettingUpdate
   };
 
-  declare type Editor_CreateLayer_Action = {
+  declare type Pattern_CreateLayer_Action = {
     type: string,
     newLayer: Layer
   };
 
-  declare type Editor_UpdateLayer_Action = {
+  declare type Pattern_CreateLayers_Action = {
     type: string,
-    ...Editor_LayerUpdate
+    newLayers: Array<Layer>
   };
 
-  declare type Editor_DeleteLayer_Action = {
+  declare type Pattern_UpdateLayer_Action = {
+    type: string,
+    ...Pattern_LayerUpdate
+  };
+
+  declare type Pattern_DeleteLayer_Action = {
     type: string,
     layerId: number
   };
 
-  declare type EditorAction =
-    | Editor_UpdateSetting_Action
-    | Editor_CreateLayer_Action
-    | Editor_UpdateLayer_Action
-    | Editor_DeleteLayer_Action;
+  declare type PatternAction =
+    | Pattern_UpdateSetting_Action
+    | Pattern_CreateLayer_Action
+    | Pattern_CreateLayers_Action
+    | Pattern_UpdateLayer_Action
+    | Pattern_DeleteLayer_Action;
 
-  declare type Editor_LayerUpdate = {
+  declare type Pattern_LayerUpdate = {
     layerId: number,
     key: string,
     value: any,
     draw?: boolean
   };
 
-  declare type Editor_SettingUpdate = {
+  declare type Pattern_SettingUpdate = {
     key: string,
     value: any
   };
@@ -120,5 +126,5 @@ declare module 'cam0' {
   //
   // ALL
 
-  declare type Action = EditorAction;
+  declare type Action = BasicAction | PatternAction;
 }

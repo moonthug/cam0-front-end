@@ -1,22 +1,22 @@
 import * as ActionTypes from '../constants/actionTypes';
-import reducer from './editorReducer';
+import reducer from './patternReducer';
 
 import initialState from './initialState';
 
-import defaultEditorSettings from '../constants/defaults/editorSettings';
+import defaultEditorSettings from '../constants/defaults/patternSettings';
 // import defaultLayer from '../constants/defaults/layer';
 
 describe('Reducers::Editor', () => {
   it('should set initial state by default', () => {
     const action = { type: 'unknown' };
-    const expected = initialState.editor;
+    const expected = initialState.pattern;
 
     expect(reducer(undefined, action)).toEqual(expected);
   });
 
-  it('should handle EDITOR_UPDATE_SETTING', () => {
+  it('should handle PATTERN_UPDATE_SETTING', () => {
     const action = {
-      type: ActionTypes.EDITOR_UPDATE_SETTING,
+      type: ActionTypes.PATTERN_UPDATE_SETTING,
       key: 'backgroundColor',
       value: '#FFCC00'
     };
@@ -30,20 +30,20 @@ describe('Reducers::Editor', () => {
     expect(reducer(state, action).settings).toEqual(expected.settings);
   });
 
-  // it('should handle EDITOR_CREATE_LAYER', () => {
-  //   const action = { type: ActionTypes.EDITOR_CREATE_LAYER };
+  // it('should handle PATTERN_CREATE_LAYER', () => {
+  //   const action = { type: ActionTypes.PATTERN_CREATE_LAYER };
   //   const expected = {
   //     layerInc: 1,
   //     layers: [ {...defaultLayer, noiseSeed: 0 }]
   //   };
   //
-  //   expect(reducer(initialState.editor, action).layers).toEqual(expected.layers);
-  //   expect(reducer(initialState.editor, action).layerInc).toEqual(expected.layerInc);
+  //   expect(reducer(initialState.pattern, action).layers).toEqual(expected.layers);
+  //   expect(reducer(initialState.pattern, action).layerInc).toEqual(expected.layerInc);
   // });
 
-  it('should handle EDITOR_UPDATE_LAYER', () => {
+  it('should handle PATTERN_UPDATE_LAYER', () => {
     const action = {
-      type: ActionTypes.EDITOR_UPDATE_LAYER,
+      type: ActionTypes.PATTERN_UPDATE_LAYER,
       layerId: 1,
       key: 'tolerance',
       value: 50
