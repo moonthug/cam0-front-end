@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import initialState from '../reducers/initialState';
 
 import { PatternPage } from './PatternPage';
-import Editor from '../components/editor';
+import Editor from './editor';
 
 describe('<PatternPage />', () => {
   const actions = {

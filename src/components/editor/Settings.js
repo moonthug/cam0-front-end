@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { Button, Checkbox, Dropdown, Form } from 'semantic-ui-react';
 
@@ -100,6 +101,9 @@ const Settings = ({
         </Button>
         <Button onClick={onReSeedLayers} negative>
           Re-Seed Layers
+        </Button>
+        <Button as={Link} to="/c/123">
+          View Example
         </Button>
       </Button.Group>
     </div>

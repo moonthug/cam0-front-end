@@ -2,11 +2,11 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
 import pattern from './patternReducer';
-import patterns from './patternsReducer';
+import gallery from './galleryReducer';
 
 const rootReducer = combineReducers({
   pattern,
-  patterns,
+  gallery,
   routing: routerReducer
 });
 

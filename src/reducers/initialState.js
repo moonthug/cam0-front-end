@@ -2,9 +2,16 @@
 import patternSettings from '../constants/defaults/patternSettings';
 
 export default {
+  // currentPattern
   pattern: {
     layers: [],
     settings: patternSettings
   },
-  patterns: []
+  gallery: {
+    patterns: []
+  }
+  // editor: {
+  //   hasSaved:
+  //   is
+  // }
 };

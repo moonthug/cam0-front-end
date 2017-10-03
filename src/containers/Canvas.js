@@ -94,6 +94,7 @@ class Canvas extends React.Component {
   //
   // CANVAS
 
+  // TODO Use d3 renderer
   draw(props = null) {
     let redraw = !props;
 

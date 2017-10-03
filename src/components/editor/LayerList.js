@@ -28,15 +28,15 @@ class LayerList extends React.Component {
   // EVENT HANDLERS
 
   onLayerUpdate(update) {
-    this.props.onLayerListUpdateLayer(update);
+    this.props.onUpdateLayer(update);
   }
 
   onLayerDuplicate(layerId) {
-    this.props.onLayerListDuplicateLayer(layerId);
+    this.props.onDuplicateLayer(layerId);
   }
 
   onLayerRemove(layerId) {
-    this.props.onLayerListDeleteLayer(layerId);
+    this.props.ontDeleteLayer(layerId);
   }
 
   onAccordionTitleClick(e, titleProps) {
@@ -103,9 +103,9 @@ const { array, func } = PropTypes;
 
 LayerList.propTypes = {
   layers: array.isRequired,
-  onLayerListUpdateLayer: func.isRequired,
-  onLayerListDuplicateLayer: func.isRequired,
-  onLayerListDeleteLayer: func.isRequired
+  onUpdateLayer: func.isRequired,
+  onDuplicateLayer: func.isRequired,
+  onDeleteLayer: func.isRequired
 };
 
 /////////////////////////////////////

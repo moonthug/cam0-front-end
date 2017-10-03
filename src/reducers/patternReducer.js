@@ -7,19 +7,30 @@ import {
   PATTERN_CREATE_LAYERS,
   PATTERN_DELETE_LAYER,
   PATTERN_UPDATE_LAYER,
-  PATTERN_RE_SEED_LAYERS
+  PATTERN_RE_SEED_LAYERS,
+  PATTERN_SET_PATTERN
 } from '../constants/actionTypes';
 
 import initialState from './initialState';
 
 // eslint-disable-next-line import/no-unresolved
-import type { PatternState, PatternAction } from 'cam0';
+import type { Pattern, PatternAction, Layer } from 'cam0';
 
-export default function editorReducer(
-  state: PatternState = initialState.pattern,
+export default function patternReducer(
+  state: Pattern = initialState.pattern,
   action: PatternAction
-): PatternState {
+): Pattern {
   switch (action.type) {
+    case PATTERN_SET_PATTERN: {
+      if (typeof action.pattern === 'undefined') return state;
+
+      action.pattern.layers = action.pattern.layers.map(layer => {
+        return { ...layer, draw: true };
+      });
+
+      return { ...state, ...action.pattern };
+    }
+
     case PATTERN_UPDATE_SETTING: {
       if (typeof action.key !== 'string') return state;
       if (typeof action.value === 'undefined') return state;
@@ -82,7 +93,6 @@ export default function editorReducer(
         newLayer.id = i;
         return newLayer;
       });
-
       return {
         ...state,
         layers: newLayers

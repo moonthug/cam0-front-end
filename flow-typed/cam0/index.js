@@ -3,6 +3,8 @@
 // eslint-disable-next-line import/named
 import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux';
 
+import * as actions from './src/constants/actionTypes';
+
 declare module 'cam0' {
   /////////////////////////////////////////////////////////////////////////////////////////
   //
@@ -14,13 +16,15 @@ declare module 'cam0' {
   // STATE
 
   declare type State = {
-    editor: PatternState
+    pattern: Pattern
   };
 
   //
   // Editor
 
-  declare type PatternState = {
+  declare type Pattern = {
+    id: string,
+    author: string,
     layers: Array<Layer>,
     settings: PatternSettings
   };
@@ -33,11 +37,7 @@ declare module 'cam0' {
   };
 
   //
-  // Patterns
-
-  declare type PatternsState = {
-    currentPage: number
-  };
+  // Gallery
 
   ///////////////////////////////////////
   //
@@ -79,28 +79,33 @@ declare module 'cam0' {
   //
   // EDITOR
 
+  declare type Pattern_SetLayer_Action = {
+    type: actions.PATTERN_SET_PATTERN,
+    pattern: Pattern
+  };
+
   declare type Pattern_UpdateSetting_Action = {
-    type: string,
+    type: actions.PATTERN_UPDATE_SETTING,
     ...Pattern_SettingUpdate
   };
 
   declare type Pattern_CreateLayer_Action = {
-    type: string,
+    type: actions.PATTERN_CREATE_LAYER,
     newLayer: Layer
   };
 
   declare type Pattern_CreateLayers_Action = {
-    type: string,
+    type: actions.PATTERN_CREATE_LAYERS,
     newLayers: Array<Layer>
   };
 
   declare type Pattern_UpdateLayer_Action = {
-    type: string,
+    type: actions.PATTERN_UPDATE_LAYER,
     ...Pattern_LayerUpdate
   };
 
   declare type Pattern_DeleteLayer_Action = {
-    type: string,
+    type: actions.PATTERN_UPDATE_SETTING,
     layerId: number
   };
 

@@ -10,6 +10,7 @@ import type {
   ThunkAction,
   Layer,
   BasicAction,
+  State,
   Pattern_SettingUpdate,
   Pattern_LayerUpdate,
   Pattern_CreateLayer_Action,
@@ -44,6 +45,15 @@ function _createLayer(fromLayer: ?Layer): Layer {
 ///////////////////////////////////////
 //
 // ACTIONS
+
+export function setPattern(pattern: Pattern): ThunkAction {
+  return function(dispatch: Dispatch<Pattern_SetLayer_Action>) {
+    return dispatch({
+      type: types.PATTERN_SET_PATTERN,
+      pattern
+    });
+  };
+}
 
 export function updateSetting(update: Pattern_SettingUpdate): ThunkAction {
   return function(dispatch: Dispatch<Pattern_UpdateSetting_Action>) {

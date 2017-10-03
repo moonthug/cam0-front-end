@@ -1,13 +1,91 @@
 {
-  "data": {
-    "gallery": {
-      "hits": [
-        {
-          "id": "1",
-          "author": "",
-          "image": ""
-        }
-      ]
-    }
+  "patterns": {
+    "success": true,
+    "payload": [
+      {
+        "id": "a",
+        "author": "alex",
+        "layers": [
+          {
+            "id": 0,
+            "draw": true,
+            "noiseSeed": 945323,
+            "color": "#eeeeee",
+            "alpha": 255,
+            "thresholdMin": 0.38824501955373825,
+            "thresholdMax": 0.9489025872624155,
+            "blendMode": "multiply",
+            "frequency": 395.50661453416404,
+            "amplitude": 1.2044561278427053
+          },
+          {
+            "id": 1,
+            "draw": true,
+            "noiseSeed": 637377,
+            "color": "#eeeeee",
+            "alpha": 255,
+            "thresholdMin": 0.4759799199618158,
+            "thresholdMax": 0.835091481183123,
+            "blendMode": "multiply",
+            "frequency": 439.62807614068697,
+            "amplitude": 0.779539737398731
+          },
+          {
+            "id": 2,
+            "draw": true,
+            "noiseSeed": 818813,
+            "color": "#ffcc00",
+            "alpha": 255,
+            "thresholdMin": 0.36124970888242414,
+            "thresholdMax": 0.8900492586169726,
+            "blendMode": "multiply",
+            "frequency": 214.0960975118638,
+            "amplitude": 1.0169622675187784
+          }
+        ]
+      },
+      {
+        "id": "b",
+        "author": "alex",
+        "layers": [
+          {
+            "id": 0,
+            "draw": true,
+            "noiseSeed": 94532,
+            "color": "#eeeeee",
+            "alpha": 255,
+            "thresholdMin": 0.38824501955373825,
+            "thresholdMax": 0.9489025872624155,
+            "blendMode": "multiply",
+            "frequency": 395.50661453416404,
+            "amplitude": 1.2044561278427053
+          },
+          {
+            "id": 1,
+            "draw": true,
+            "noiseSeed": 6377,
+            "color": "#eeeeee",
+            "alpha": 255,
+            "thresholdMin": 0.4759799199618158,
+            "thresholdMax": 0.835091481183123,
+            "blendMode": "multiply",
+            "frequency": 439.62807614068697,
+            "amplitude": 0.779539737398731
+          },
+          {
+            "id": 2,
+            "draw": true,
+            "noiseSeed": 81883,
+            "color": "#00ffcc",
+            "alpha": 255,
+            "thresholdMin": 0.36124970888242414,
+            "thresholdMax": 0.8900492586169726,
+            "blendMode": "multiply",
+            "frequency": 214.0960975118638,
+            "amplitude": 1.0169622675187784
+          }
+        ]
+      }
+    ]
   }
 }

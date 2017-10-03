@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const HomePage = () => {
+const View = () => {
   return (
     <div>
-      <h1>Home</h1>
-      <Link to="/editor">editor</Link>
+      <h1>View</h1>
+      <Link to="/edit">Editor</Link>
     </div>
   );
 };
 
-export default HomePage;
+export default View;
